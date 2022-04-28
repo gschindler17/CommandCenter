@@ -45,6 +45,7 @@ public class GraphicsInterface extends Application{
 			rootGridPane.getChildren().add(activePersistencePanel);
 			
 			RotatingMessagePanel activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
+			activeRotatingMessagePanel.start();
 			GridPane.setConstraints(activeRotatingMessagePanel, 1, 0);
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
 			
