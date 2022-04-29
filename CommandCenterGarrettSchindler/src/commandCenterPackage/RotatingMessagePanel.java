@@ -29,16 +29,17 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		
 		
-		toDisplay = new CircularLinkedList();
 		
-		// toDisplay = programBrains.getRotatingMessages()
+		toDisplay = programBrains.getRotatingMessages();
 			// May need more brains because of immutable properties
 		
 		Timer rotationTimer = new Timer();
 		TimerTask rotationTask = new TimerTask() {
 			 @Override
 			    public void run() {
-			        System.out.println("in rotation");
+			        programBrains.addRotatingMessages("Garrett Schindler was here");
+			        toDisplay = programBrains.getRotatingMessages();
+			        System.out.println(toDisplay + " ");
 			        
 			    }
 			};
@@ -53,7 +54,6 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 //		
 	}
-	
 	
 	
 	
