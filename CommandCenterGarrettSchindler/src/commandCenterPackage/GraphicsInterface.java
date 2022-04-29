@@ -49,7 +49,7 @@ public class GraphicsInterface extends Application{
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
 			
 			BacklogPanel activeBacklogPanel = new BacklogPanel(programBrains);
-			GridPane.setConstraints(activeBacklogPanel, 1, 0);
+			GridPane.setConstraints(activeBacklogPanel, 2, 0);
 			rootGridPane.getChildren().add(activeBacklogPanel);
 			
 			/*

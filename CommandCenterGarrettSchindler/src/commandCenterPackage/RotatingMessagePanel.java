@@ -4,10 +4,13 @@ package commandCenterPackage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -18,17 +21,15 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	 */
 	private Controller programBrains;
 	
-	private CircularLinkedList toDisplay;
-	
 	private Button addMessageButton;
 	
 	private Button removeMessageButton;
 	
-	private Text addMessageText;
-	
-	private int messageNumber;
+	private TextField messageToAddTF;
 	
 	private Label shownLabel;
+	
+	private String messageToDisplay;
 	
 	
 	RotatingMessagePanel(Controller _programBrains) {
@@ -37,54 +38,74 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		super();
 		
 		programBrains = _programBrains;
-				
-		System.out.println("Started RMP Constructor");
 		
 		
-		messageNumber = 0;
+		addMessageButton = new Button("Add message:");
+		addMessageButton.setOnAction(this);
 		
-		shownLabel = new Label("empty");
+		// addTaskButton GridPaneConstraints
+		GridPane.setConstraints(addMessageButton, 2, 0);
+		GridPane.setMargin(addMessageButton, new Insets(10));
+		
+		this.getChildren().add(addMessageButton);
+		
+		
+		removeMessageButton = new Button("Remove current message");
+		removeMessageButton.setOnAction(this);
+		
+		// addTaskButton GridPaneConstraints
+		GridPane.setConstraints(removeMessageButton, 2, 1);
+		GridPane.setMargin(removeMessageButton, new Insets(10));
+		
+		this.getChildren().add(removeMessageButton);
+		
+		
+		messageToAddTF = new TextField();
+		messageToAddTF.setPrefColumnCount(20);
+		
+		// addTaskButton GridPaneConstraints
+		GridPane.setConstraints(messageToAddTF, 3, 0);
+		GridPane.setMargin(removeMessageButton, new Insets(10));
+		
+		this.getChildren().add(messageToAddTF);
+		
+		
+		
+		
+		shownLabel = new Label("STARTING PROCESSES...");
 		this.getChildren().add(shownLabel);
 		
-		
-		
-		toDisplay = programBrains.getRotatingMessages();
-			// May need more brains because of immutable properties
-		
+		messageToDisplay = programBrains.nextRotatingMessage();
+			
 		
 		Timer rotationTimer = new Timer();
-		TimerTask rotationTask = new TimerTask() {
-			 @Override
-			    public void run() {
-			        programBrains.addRotatingMessages("Garrett Schindler was here");
-			        toDisplay = programBrains.getRotatingMessages();
-			        
-			        //TODO change the label based off of the new text
-			        
-			        messageNumber++;
-			        
-			        if (messageNumber >= toDisplay.getSize())
-			        {
-			        	messageNumber = messageNumber %  toDisplay.getSize();
-			        }
-			        
-			        
-			        
-			        System.out.println("end of run");
-			        
-			        
-			        
-			    }
+		TimerTask rotationTask = new TimerTask() { 
+			@Override
+			public void run() {
+		        
+		        Platform.runLater(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						System.out.println(programBrains.nextRotatingMessage());
+						
+						shownLabel.setText(programBrains.nextRotatingMessage());
+						
+					}
+		       
+		        });
+				
 			};
+		};
+			
+
 			
 		
 		
 		rotationTimer.schedule(rotationTask, 2000, 2000);
 		
-		
-		
-		
-		System.out.println("Finished RMP Constructor");
 		
 //		
 	}
@@ -98,8 +119,22 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	
 
 	@Override
-	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void handle(ActionEvent onClick) {
+		if (onClick.getSource() == addMessageButton)
+		{
+			System.out.println("Adding Message to Rotating Message Panel");
+			
+			String receivedMessage = messageToAddTF.getText();
+			
+			programBrains.addMessageToRMP(receivedMessage);
+			
+			
+		}
+		if (onClick.getSource() == removeMessageButton)
+		{
+			System.out.println("Deleting Message from Rotating Message Panel");
+			programBrains.removeMessageFromRMP();
+		}
 		
 	}
 

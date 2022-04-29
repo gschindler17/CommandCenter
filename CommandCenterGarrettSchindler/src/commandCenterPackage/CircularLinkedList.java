@@ -20,26 +20,39 @@ public class CircularLinkedList<T> {
 
 	/** The number of items in the list */
 	private int size;
+	
+	/** Current node */
+	private ListNode currentNode;
 
 	
 	public CircularLinkedList() {
 		size = 0;
-		head = null;
-		tail = null;
+		head = new ListNode(null, tail);
+		tail = new ListNode(null, head);
+		currentNode = head;
+		
+		
 	}
 	
 	
 	public CircularLinkedList(T firstData) {
 		size = 1;
-		head = new ListNode(null, firstData, null);
-		tail = head;
+		tail = new ListNode(null, head);
+		head = new ListNode(null, tail);
+		ListNode newNode = new ListNode(firstData, tail);
+		head.next = newNode;
+		currentNode = head;
+		
+		
+		System.out.println(currentNode.rdata);
+		System.out.println(currentNode.next);
 	}
 	
 	
 	public void clear() {
 		size = 0;
-		head = null;
-		tail = null;
+		head = new ListNode(null, tail);
+		tail = new ListNode(null, head);
 	}
 	
 	
@@ -49,31 +62,19 @@ public class CircularLinkedList<T> {
 	
 	
 	public void add(T data) {
-		if (head == null)
+		if (head.next == tail)
 		{
-			head = new ListNode(null, data, null);
-			tail = head;
-			size = 1;
+			ListNode newNode = new ListNode(data, tail);
+			head.next = newNode;
+			
+			size++;
 		}
 		else
 		{
-			ListNode reference = head;
-			
-			for (int i = 0; i < size; i++)
-			{
-				if (reference == tail)
-				{
-					ListNode temp = new ListNode(tail, data, null);
-					head.previous = temp;
-					tail.next = temp;
-					tail = temp;
-				}
-				
-				reference = reference.next;
-			}
-			
-			
-			
+			ListNode newNode = new ListNode(data, tail);
+			currentNode.next = newNode;
+			currentNode = newNode;
+		
 			size++;
 		}
 	}
@@ -89,8 +90,7 @@ public class CircularLinkedList<T> {
 		
 		for (int i = 0; i < size; i++)
 		{
-			System.out.println("size in loop: " + size);
-			output = output + reference.rdata + " ";
+			output = output + reference.rdata + ", ";
 			reference = reference.next;
 		}
 		return output;
@@ -106,18 +106,20 @@ public class CircularLinkedList<T> {
 		// A "pointer" to the next node or null at the end of the list
 		public ListNode next;
 		
-		// A "pointer" to the previous node
-		public ListNode previous;
 	
 		/**
 		 * Constructor
 		 * @param data - the next item to store
 		 * @param next- the object reference to the next item
 		 */
-		public ListNode (ListNode _previous, T _rdata, ListNode _next){
+		public ListNode ( T _rdata, ListNode _next){
 			rdata = _rdata;
 			next = _next;
-			previous = _previous;
+		}
+		
+		@Override
+		public String toString() {
+			return (String) rdata;
 		}
 		
 	}
@@ -198,6 +200,40 @@ public class CircularLinkedList<T> {
 		{
 			throw new IllegalArgumentException ("Data to delete not found in the CircularLinkedList");
 		}
+		
+	}
+
+
+
+
+	public String next() {
+		
+		while (currentNode.rdata == null)
+		{
+			currentNode = currentNode.next;
+		}
+		
+		String toReturn = (String)currentNode.rdata;
+				
+		currentNode = currentNode.next;
+
+		return toReturn;
+		
+	}
+
+
+	public void deleteCurrent() {
+		
+		ListNode temp = head;
+		
+		while (temp.next != currentNode)
+		{
+			temp = temp.next;
+		}
+		
+		temp.next = currentNode.next;
+		
+		currentNode = temp;
 		
 	}
 }
