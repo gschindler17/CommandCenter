@@ -6,9 +6,12 @@ import java.util.TimerTask;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
-public class RotatingMessagePanel extends GridPane implements EventHandler<ActionEvent>, Runnable {
+public class RotatingMessagePanel extends GridPane implements EventHandler<ActionEvent> {
 	
 	/**
 	 * The RotatingMessagePanel reference to the Controller
@@ -16,6 +19,16 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	private Controller programBrains;
 	
 	private CircularLinkedList toDisplay;
+	
+	private Button addMessageButton;
+	
+	private Button removeMessageButton;
+	
+	private Text addMessageText;
+	
+	private int messageNumber;
+	
+	private Label shownLabel;
 	
 	
 	RotatingMessagePanel(Controller _programBrains) {
@@ -28,10 +41,16 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		System.out.println("Started RMP Constructor");
 		
 		
+		messageNumber = 0;
+		
+		shownLabel = new Label("empty");
+		this.getChildren().add(shownLabel);
+		
 		
 		
 		toDisplay = programBrains.getRotatingMessages();
 			// May need more brains because of immutable properties
+		
 		
 		Timer rotationTimer = new Timer();
 		TimerTask rotationTask = new TimerTask() {
@@ -39,12 +58,27 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 			    public void run() {
 			        programBrains.addRotatingMessages("Garrett Schindler was here");
 			        toDisplay = programBrains.getRotatingMessages();
-			        System.out.println(toDisplay + " ");
+			        
+			        //TODO change the label based off of the new text
+			        
+			        messageNumber++;
+			        
+			        if (messageNumber >= toDisplay.getSize())
+			        {
+			        	messageNumber = messageNumber %  toDisplay.getSize();
+			        }
+			        
+			        
+			        
+			        System.out.println("end of run");
+			        
+			        
 			        
 			    }
 			};
 			
-			
+		
+		
 		rotationTimer.schedule(rotationTask, 2000, 2000);
 		
 		
@@ -71,22 +105,9 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 
 
 
-	
-	
-	public void start() {
-		System.out.println("Starting thread");
-		
-		Thread startThread = new Thread(this, "NamedThread");
-		startThread.start();
-	}
-	
-	
-	@Override
-	public void run() {
-		System.out.println("This is running");
-		
-	}
-	
-	
+
+
+
+
 	
 }

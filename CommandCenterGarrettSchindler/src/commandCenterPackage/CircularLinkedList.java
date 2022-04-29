@@ -121,6 +121,52 @@ public class CircularLinkedList<T> {
 		}
 		
 	}
+	
+	
+	/**
+	 * Note that this is returning pointer the data item (type T), not the ListNode object
+	 * @param index index that you want to fetch data from
+	 * @return data item located at that index
+	 * @throws IllegalArgumentException if requested index is out of bounds
+	 */
+	public T get(int index) throws IllegalArgumentException{
+		
+		if (index < 0 || index > size)
+		{
+			throw new IllegalArgumentException("Index is simply out of bounds.");
+		}
+		
+		
+		ListNode scratch1 = findNodeAtPosition(index);
+		return scratch1.rdata;
+		
+	}
+	
+	
+	/**
+	 * Helper method to locate the node at a particular index
+	 * Can be used to avoid duplicated code in other methods
+	 * Note this is private since it is used to support the public methods
+	 * @param index the index you want to locate
+	 * @return A pointer to the node at requested index
+	 * @throws IllegalArgumentException If requested index is out of bounds
+	 */
+	private ListNode findNodeAtPosition(int index) throws IllegalArgumentException{
+		
+		if (index < 0 || index > size)
+		{
+			throw new IllegalArgumentException("Index is simply out of bounds.");
+		}
+		
+		ListNode scratch = head;
+		
+		for (int i = 0; i < index; i++)
+		{
+			scratch = scratch.next;
+		}
+		
+		return scratch;
+	}
 
 
 
