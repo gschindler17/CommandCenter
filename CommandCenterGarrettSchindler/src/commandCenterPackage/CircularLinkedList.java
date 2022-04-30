@@ -24,6 +24,11 @@ public class CircularLinkedList<T> {
 	/** Current node */
 	private ListNode currentNode;
 
+	
+	/**
+	 * Empty constructor of CircularLinkedList
+	 * Initializes a CircularLinkedList object 
+	 */
 	public CircularLinkedList() {
 		tail = null;
 		head = null;
@@ -31,6 +36,10 @@ public class CircularLinkedList<T> {
 		currentNode = head;
 	}
 	
+	/**
+	 * Initializes a CircularLinkedList object
+	 * @param firstData first item to add to the CircularLinkedList
+	 */
 	public CircularLinkedList(T firstData) {
 		tail = null;
 		head = null;
@@ -39,7 +48,10 @@ public class CircularLinkedList<T> {
 		currentNode = head;
 	}
 	
-	
+	/**
+	 * Clears the CircularLinkedList
+	 * Sets to null
+	 */
 	public void clear() {
 		size = 0;
 		head = null;
@@ -47,39 +59,42 @@ public class CircularLinkedList<T> {
 		tail = null;
 	}
 	
-	
+	/**
+	 * @return size of the CircularLinkedList
+	 */
 	public int getSize() {
 		return size;
 	}
 	
 	
+	/**
+	 * Adds a data piece to the CircularLinkedList
+	 * @param data of Type T
+	 */
 	public void add(T data) {
 		ListNode newNode = new ListNode(data, null);
 
+		// if the CircularLinkedList is empty
 	    if (head == null) {
 	        head = newNode;
 	    } else {
 	        tail.next = newNode;
 	    }
 
-	    System.out.println("HEAD:" + head);
-	    
+	    // Links all of the ListNodes together
 	    tail = newNode;
 	    tail.next = head;
 	    currentNode = head;
 	    size++;
 	}
 	
-	
-	
-	
-	// TODO Check validity
+	/**
+	 * @return String of the CircularLinkedList
+	 */
 	@Override
 	public String toString() {
 		String output = "";
 		ListNode reference = head;
-		
-		System.out.println("size: " + size);
 		
 		for (int i = 0; i < size; i++)
 		{
@@ -92,7 +107,11 @@ public class CircularLinkedList<T> {
 	
 
 	
-	
+	/**
+	 * ListNode objects are passed around in the CircularLinkedList
+	 * @author Garrett Schindler
+	 *
+	 */
 	private class ListNode{
 		// The data to store in this node:
 		public T rdata;
@@ -165,7 +184,10 @@ public class CircularLinkedList<T> {
 
 
 
-	// TODO Check validity
+	/**
+	 * Removes data from the CircularLinkedList
+	 * @param data to be deleted
+	 */
 	public void delete(String data) {
 		if (size ==  0)
 		{
@@ -195,20 +217,27 @@ public class CircularLinkedList<T> {
 	}
 
 
+	/**
+	 * Grabs the next item in the circularly linked list
+	 * Increments currentNode after finding it
+	 * @return String of the data in next node
+	 * @throws NullPointerException if currentNode is null or currentNode.rdata is null
+	 */
 	public String next() throws NullPointerException{
 		
+		// If the currentNode is null, throw exception
 		if (currentNode == null)
 		{
 			throw new NullPointerException("NOTHING IN LINKEDLIST!!");
 		}
 		
-		
+		// If the currentNode has no data, throw exception
 		if (currentNode.rdata == null)
 		{
 			throw new NullPointerException("You must add a value to the list to continue");
 		}
 		
-		System.out.println(currentNode);
+		// Go to the next node
 		currentNode = currentNode.next;
 		
 		String toReturn = (String)currentNode.rdata;
@@ -220,24 +249,29 @@ public class CircularLinkedList<T> {
 	}
 
 
+	/**
+	 * Deletes the currentNode from the CircularLinkedList
+	 * 
+	 */
 	public void deleteCurrent() {
 		
 		ListNode temp = head;
-	    if (head == null) { // the list is empty
+		
+	    // if the CircularLinkedList is empty, return
+		if (head == null) { // the list is empty
 	        return;
 	    }
 	    
+		// if the currentNode is the head and there is more than 1 item in array
 	    if (temp == currentNode && size > 1)
 	    {
+	    	// Go to the node before currentNode
 	    	for (int k = 0; k < size - 1; k++)
 	    	{
 	    		temp = temp.next;
 	    	}
 	    	
-	    	System.out.println("\nTEMP: " + temp);
-	    	System.out.println("head.next: " + head.next + "\n");
-	    	
-	    	
+	    	// Remove the node from the CircularLinkedList and return
 	    	temp.next = head.next;
 	    	head = head.next;
 	    	currentNode = temp;
@@ -245,6 +279,7 @@ public class CircularLinkedList<T> {
 	    	return;
 	    }
 	    
+	    // If currentNode != head, then increment until node is deleted
 	    for (int i = 0; i < size; i++)
 	    {
 	    	if (temp.next == currentNode)
