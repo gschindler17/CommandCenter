@@ -24,35 +24,27 @@ public class CircularLinkedList<T> {
 	/** Current node */
 	private ListNode currentNode;
 
-	
 	public CircularLinkedList() {
+		tail = null;
+		head = null;
 		size = 0;
-		head = new ListNode(null, tail);
-		tail = new ListNode(null, head);
 		currentNode = head;
-		
-		
 	}
 	
-	
 	public CircularLinkedList(T firstData) {
-		size = 1;
-		tail = new ListNode(null, head);
-		head = new ListNode(null, tail);
-		ListNode newNode = new ListNode(firstData, tail);
-		head.next = newNode;
+		tail = null;
+		head = null;
+		size = 0;
+		this.add(firstData);
 		currentNode = head;
-		
-		
-		System.out.println(currentNode.rdata);
-		System.out.println(currentNode.next);
 	}
 	
 	
 	public void clear() {
 		size = 0;
-		head = new ListNode(null, tail);
-		tail = new ListNode(null, head);
+		head = null;
+		currentNode = head;
+		tail = null;
 	}
 	
 	
@@ -62,22 +54,23 @@ public class CircularLinkedList<T> {
 	
 	
 	public void add(T data) {
-		if (head.next == tail)
-		{
-			ListNode newNode = new ListNode(data, tail);
-			head.next = newNode;
-			
-			size++;
-		}
-		else
-		{
-			ListNode newNode = new ListNode(data, tail);
-			currentNode.next = newNode;
-			currentNode = newNode;
-		
-			size++;
-		}
+		ListNode newNode = new ListNode(data, null);
+
+	    if (head == null) {
+	        head = newNode;
+	    } else {
+	        tail.next = newNode;
+	    }
+
+	    System.out.println("HEAD:" + head);
+	    
+	    tail = newNode;
+	    tail.next = head;
+	    currentNode = head;
+	    size++;
 	}
+	
+	
 	
 	
 	// TODO Check validity
@@ -181,7 +174,6 @@ public class CircularLinkedList<T> {
 		
 		
 		ListNode ref = head;
-		
 		boolean found = false;
 		
 		for (int i = 0; i < size; i++)
@@ -200,22 +192,28 @@ public class CircularLinkedList<T> {
 		{
 			throw new IllegalArgumentException ("Data to delete not found in the CircularLinkedList");
 		}
-		
 	}
 
 
-
-
-	public String next() {
+	public String next() throws NullPointerException{
 		
-		while (currentNode.rdata == null)
+		if (currentNode == null)
 		{
-			currentNode = currentNode.next;
+			throw new NullPointerException("NOTHING IN LINKEDLIST!!");
 		}
+		
+		
+		if (currentNode.rdata == null)
+		{
+			throw new NullPointerException("You must add a value to the list to continue");
+		}
+		
+		System.out.println(currentNode);
+		currentNode = currentNode.next;
 		
 		String toReturn = (String)currentNode.rdata;
 				
-		currentNode = currentNode.next;
+		
 
 		return toReturn;
 		
@@ -225,15 +223,40 @@ public class CircularLinkedList<T> {
 	public void deleteCurrent() {
 		
 		ListNode temp = head;
+	    if (head == null) { // the list is empty
+	        return;
+	    }
+	    
+	    if (temp == currentNode && size > 1)
+	    {
+	    	for (int k = 0; k < size - 1; k++)
+	    	{
+	    		temp = temp.next;
+	    	}
+	    	
+	    	System.out.println("\nTEMP: " + temp);
+	    	System.out.println("head.next: " + head.next + "\n");
+	    	
+	    	
+	    	temp.next = head.next;
+	    	head = head.next;
+	    	currentNode = temp;
+	    	size--;
+	    	return;
+	    }
+	    
+	    for (int i = 0; i < size; i++)
+	    {
+	    	if (temp.next == currentNode)
+	    	{
+	    		temp.next = currentNode.next;
+	    	}
+	    	
+	    	temp = temp.next;
+	    }
+	    
+	    size --;
 		
-		while (temp.next != currentNode)
-		{
-			temp = temp.next;
-		}
-		
-		temp.next = currentNode.next;
-		
-		currentNode = temp;
 		
 	}
 }

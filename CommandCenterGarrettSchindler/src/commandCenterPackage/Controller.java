@@ -28,7 +28,7 @@ public class Controller {
 		// Initializes the storageSystem
 		// Type: PersistenceBackend
 		storageSystem = new PersistenceBackend();
-		rotatingMessages = new CircularLinkedList<String> ("SAMPLE");
+		rotatingMessages = new CircularLinkedList<String> ();
 		
 	}
 	

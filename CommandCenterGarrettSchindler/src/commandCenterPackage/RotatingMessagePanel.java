@@ -73,6 +73,11 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		
 		shownLabel = new Label("STARTING PROCESSES...");
+		programBrains.addMessageToRMP("FIRST ITEM SHOWN");
+		programBrains.addMessageToRMP("SECOND ITEM SHOWN");
+		programBrains.addMessageToRMP("THIRD ITEM SHOWN");
+		
+		System.out.println(programBrains.getRotatingMessages());
 		this.getChildren().add(shownLabel);
 		
 		messageToDisplay = programBrains.nextRotatingMessage();
@@ -87,10 +92,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
-						
-						System.out.println(programBrains.nextRotatingMessage());
-						
+												
 						shownLabel.setText(programBrains.nextRotatingMessage());
 						
 					}
