@@ -29,8 +29,6 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	
 	private Label shownLabel;
 	
-	private String messageToDisplay;
-	
 	
 	RotatingMessagePanel(Controller _programBrains) {
 		
@@ -71,7 +69,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		
 		
-		
+		// TODO Figure out how to use these values
 		shownLabel = new Label("STARTING PROCESSES...");
 		programBrains.addMessageToRMP("FIRST ITEM SHOWN");
 		programBrains.addMessageToRMP("SECOND ITEM SHOWN");
@@ -79,20 +77,29 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		System.out.println(programBrains.getRotatingMessages());
 		this.getChildren().add(shownLabel);
-		
-		messageToDisplay = programBrains.nextRotatingMessage();
 			
 		
+		/**
+		 * Timer
+		 */
 		Timer rotationTimer = new Timer();
+		
+		/**
+		 * Task that the timer is going to do
+		 */
 		TimerTask rotationTask = new TimerTask() { 
 			@Override
 			public void run() {
 		        
+				
+				// Crucial part so that threading does not go out of line
 		        Platform.runLater(new Runnable(){
 
 					@Override
 					public void run() {
-												
+						
+						// Sets the label to the new rotating message
+						// programBrains.nextRotatingMessage is of type String
 						shownLabel.setText(programBrains.nextRotatingMessage());
 						
 					}
@@ -104,8 +111,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 			
 
 			
-		
-		
+		// Timer does the scheduled task every ____ milliseconds;
 		rotationTimer.schedule(rotationTask, 2000, 2000);
 		
 		
@@ -132,9 +138,11 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 			
 			
 		}
+		
 		if (onClick.getSource() == removeMessageButton)
 		{
 			System.out.println("Deleting Message from Rotating Message Panel");
+			
 			programBrains.removeMessageFromRMP();
 		}
 		
