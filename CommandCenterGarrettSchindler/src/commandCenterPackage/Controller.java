@@ -21,11 +21,15 @@ public class Controller {
 	
 	
 	
+	
+	
+	
 	public Controller () {
 		// Initializes the storageSystem
 		// Type: PersistenceBackend
 		storageSystem = new PersistenceBackend();
 		rotatingMessages = new CircularLinkedList<String> ();
+		
 	}
 	
 	
@@ -50,6 +54,23 @@ public class Controller {
 	
 	public void deleteRotatingMessages(String data) {
 		rotatingMessages.delete(data);
+	}
+
+
+	public String nextRotatingMessage() {
+		return rotatingMessages.next();
+	}
+
+
+	public void addMessageToRMP(String messageToAdd) {
+		rotatingMessages.add(messageToAdd);
+		
+	}
+
+
+	public void removeMessageFromRMP() {
+		rotatingMessages.deleteCurrent();
+		
 	}
 	
 	
