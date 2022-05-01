@@ -20,21 +20,35 @@ public class Controller {
 	private CircularLinkedList<String> rotatingMessages;
 	
 	
+	/**
+	 * Object that handles the PriorityQueue data
+	 * Type: MinHeap
+	 */
+	private MinHeap<String> priorityMinHeap;
+	
+	
+	private Stack<String> backlogStack;
 	
 	
 	
 	
-	public Controller () {
-		// Initializes the storageSystem
-		// Type: PersistenceBackend
-		storageSystem = new PersistenceBackend();
+	
+	
+	public Controller() {
+		
+		
 		rotatingMessages = new CircularLinkedList<String> ();
+		priorityMinHeap = new MinHeap<String> ();
+		backlogStack = new Stack<String> ();
+		
+		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);
+		
 		
 	}
 	
 	
 	public void saveData() {
-		// TODO Auto-generated method stub
+		storageSystem.saveData();
 		
 	}
 

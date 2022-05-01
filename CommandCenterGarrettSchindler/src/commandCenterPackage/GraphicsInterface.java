@@ -52,6 +52,8 @@ public class GraphicsInterface extends Application{
 			GridPane.setConstraints(activeBacklogPanel, 2, 0);
 			rootGridPane.getChildren().add(activeBacklogPanel);
 			
+			programBrains.saveData();
+			
 			/*
 			 * TODO
 			 * Add elements to GridPane in correct locations

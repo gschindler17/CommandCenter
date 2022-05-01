@@ -251,7 +251,6 @@ public class CircularLinkedList<T> {
 
 	/**
 	 * Deletes the currentNode from the CircularLinkedList
-	 * 
 	 */
 	public void deleteCurrent() {
 		

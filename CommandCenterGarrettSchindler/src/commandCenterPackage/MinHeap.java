@@ -1,5 +1,5 @@
 package commandCenterPackage;
 
-public class MinHeap {
+public class MinHeap <T>{
 
 }
