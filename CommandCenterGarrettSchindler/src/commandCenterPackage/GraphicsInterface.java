@@ -35,7 +35,7 @@ public class GraphicsInterface extends Application{
 	public void start(Stage primaryStage) {
 		try {
 			GridPane rootGridPane = new GridPane();
-			rootGridPane.setPrefSize(1000, 700);
+			rootGridPane.setPrefSize(500, 400);
 			Scene _scene = new Scene(rootGridPane, 1000, 700);
 			primaryStage.setScene(_scene);
 			primaryStage.setTitle("Garrett Schindler's Command Center");

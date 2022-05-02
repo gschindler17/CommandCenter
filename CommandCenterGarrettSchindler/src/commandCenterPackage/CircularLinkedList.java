@@ -1,6 +1,6 @@
 package commandCenterPackage;
 
-
+import java.util.ArrayList;
 
 /** 
  
@@ -53,10 +53,10 @@ public class CircularLinkedList<T> {
 	 * Sets to null
 	 */
 	public void clear() {
-		size = 0;
-		head = null;
-		currentNode = head;
 		tail = null;
+		head = null;
+		size = 0;
+		currentNode = head;
 	}
 	
 	/**
@@ -293,10 +293,47 @@ public class CircularLinkedList<T> {
 		
 		
 	}
+	
 
 	public void loadInData(String loadedString) {
-		// TODO Auto-generated method stub
+
+		int count = 0;
+		String temp = loadedString;
+		ArrayList<String> entries = new ArrayList<String> ();
 		
+		
+		count = countChar(temp, ',');
+		
+		for(int i = 0; i < count; i++)
+		{
+			entries.add(temp.substring(0, temp.indexOf(',')));
+			temp = temp.substring(temp.indexOf(',') + 2, temp.length());
+		}
+		
+		
+		this.clear();
+		
+		for (String LLS: entries)
+		{
+			
+			this.add((T)LLS);
+		}
+		
+		
+		
+	}
+	
+	private static int countChar(String str, char c)
+	{
+	    int count = 0;
+
+	    for(int i=0; i < str.length(); i++)
+	    {    if(str.charAt(i) == c)
+	            count++;
+	    }
+
+	    System.out.println("COUNT: " + count);
+	    return count;
 	}
 }
 	
