@@ -100,6 +100,13 @@ public class Stack <T> implements DSStack<T> {
 		
 		return toReturn;
 	}
+
+
+
+	public void loadInData(String loadedString) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

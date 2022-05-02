@@ -293,6 +293,11 @@ public class CircularLinkedList<T> {
 		
 		
 	}
+
+	public void loadInData(String loadedString) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 	
 	
