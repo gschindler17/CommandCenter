@@ -330,7 +330,6 @@ public class CircularLinkedList<T> {
 	            count++;
 	    }
 
-	    System.out.println("COUNT: " + count);
 	    return count;
 	}
 }
