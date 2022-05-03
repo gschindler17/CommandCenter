@@ -319,8 +319,6 @@ public class CircularLinkedList<T> {
 			this.add((T)LLS);
 		}
 		
-		
-		
 	}
 	
 	private static int countChar(String str, char c)
