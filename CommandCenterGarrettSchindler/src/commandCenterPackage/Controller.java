@@ -38,7 +38,7 @@ public class Controller {
 		
 		
 		rotatingMessages = new CircularLinkedList<String> ();
-		priorityMinHeap = new MinHeap<String> ();
+		priorityMinHeap = new MinHeap<String> (100);
 		backlogStack = new Stack<String> ();
 		
 		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);

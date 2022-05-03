@@ -2,9 +2,9 @@ package commandCenterPackage;
 
 import java.util.ArrayList;
 
-public class MinHeap <T>{
+public class MinHeap <T extends Comparable<? super T>>{
 
-	private int[] heapArray;
+	private T[] heapArray;
 	private int heapSize;
 	private int maxSize;
 	
@@ -12,8 +12,7 @@ public class MinHeap <T>{
 		maxSize = _maxSize;
 		heapSize = 0;
 		
-		heapArray = new int[maxSize + 1];
-		heapArray[0] = 0;
+		heapArray = (T[]) (new Comparable[maxSize]);
 	
 	}
 	
@@ -35,13 +34,60 @@ public class MinHeap <T>{
 	
 	private void swap(int firstIndex, int secondIndex)
 	{
-		int temp;
+		T temp;
 		temp = heapArray[firstIndex];
 		
 		heapArray[firstIndex] = heapArray[secondIndex];
 		heapArray[secondIndex] = temp;
 	}
 	
+	public void buildHeap(int startingIndex)
+	{
+		// If the node is a non-leaf node and greater
+        // than any of its child
+        if (!isLeaf(startingIndex)) {
+        	if (heapArray[startingIndex].compareTo(heapArray[leftChild(startingIndex)]) > 0 || heapArray[startingIndex].compareTo(heapArray[rightChild(startingIndex)]) > 0)    
+        	{
+                // Swap with the left child and heapify
+                // the left child
+                if (heapArray[leftChild(startingIndex)].compareTo(heapArray[rightChild(startingIndex)]) < 1) {
+                    swap(startingIndex, leftChild(startingIndex));
+                    buildHeap(leftChild(startingIndex));
+                }
+ 
+                // Swap with the right child and heapify
+                // the right child
+                else {
+                    swap(startingIndex, rightChild(startingIndex));
+                    buildHeap(rightChild(startingIndex));
+                }
+            }
+        }
+	}
+	
+	
+	private boolean isLeaf(int startingIndex) {
+		 	
+		if (startingIndex > (heapSize / 2) && startingIndex <= heapSize)
+		 {
+	            return true;
+	     }
+	 
+	    return false;
+	}
+
+
+	// To remove and return the minimum
+    // element from the heap
+    public T delete()
+    {
+ 
+        T popped = heapArray[0];
+        heapArray[0] = heapArray[heapSize--];
+        buildHeap(0);
+ 
+        return popped;
+    }
 	
 	public void loadInData(String loadedString) {
 		int count = 0;
@@ -68,8 +114,18 @@ public class MinHeap <T>{
 		
 	}
 	
-	private void add(T entry) {
-		// TODO Auto-generated method stub
+	private void add(T entry) throws ArrayIndexOutOfBoundsException {
+		if (heapSize >= maxSize) {
+            throw new ArrayIndexOutOfBoundsException("CANNOT ADD TO MINHEAP, ArrayIndexOutOfBoundsException");
+        }
+ 
+        heapArray[++heapSize] = entry;
+        int current = heapSize;
+ 
+        while (heapArray[current].compareTo(heapArray[parent(current)]) < 0) {
+            swap(current, parent(current));
+            current = parent(current);
+        }
 		
 	}
 
@@ -90,6 +146,4 @@ public class MinHeap <T>{
 	    return count;
 	}
 		
-	}
-
 }
