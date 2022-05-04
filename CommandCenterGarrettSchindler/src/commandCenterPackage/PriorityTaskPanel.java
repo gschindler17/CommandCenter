@@ -69,6 +69,10 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		
 		
 		
+		//TODO Change
+		programBrains.addPriorityTask("PRIORITY TASK 1", 3);
+		
+		
 		
 		this.getChildren().add(taskTF);
 		this.getChildren().add(taskPriorityTF);
@@ -78,8 +82,13 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 
 
 	@Override
-	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void handle(ActionEvent onClick) {
+		if (onClick.getSource() == addTaskButton)
+		{
+			System.out.println("Adding task to PriorityTaskList");
+			String receivedTask = taskTF.getText();
+			int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
+			programBrains.addPriorityTask(receivedTask, receivedPriority);
+		}
 	}
 }

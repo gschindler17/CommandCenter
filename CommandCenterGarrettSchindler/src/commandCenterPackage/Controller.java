@@ -86,6 +86,12 @@ public class Controller {
 		rotatingMessages.deleteCurrent();
 		
 	}
+
+
+	public void addPriorityTask(String receivedTask, int receivedPriority) {
+		priorityMinHeap.add(receivedTask, receivedPriority);
+		
+	}
 	
 	
 	

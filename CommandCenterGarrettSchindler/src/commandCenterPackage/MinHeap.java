@@ -118,20 +118,21 @@ public class MinHeap {
 		
 	}
 	
-	private void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {
+	public void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {
 		if (heapSize >= maxSize) {
             throw new ArrayIndexOutOfBoundsException("CANNOT ADD TO MINHEAP, ArrayIndexOutOfBoundsException");
         }
  
-        heapArray[++heapSize] = new PriorityNode((String)data, priorityVal);
+		PriorityNode toAdd = new PriorityNode((String)data, priorityVal);		
+		
+        heapArray[heapSize++] = new PriorityNode((String)data, priorityVal);
         int current = heapSize;
- 
+        
         if (current > 1)
         {
-	        while (heapArray[current].compareTo(heapArray[parent(current)]) < 0) {
-	        	System.out.println("IN loop");
-	            swap(current, parent(current));
-	            current = parent(current);
+	        while (heapArray[current - 1].compareTo(heapArray[parent(current )]) < 0) {
+	            swap(current -1, parent(current -1 ));
+	            current = parent(current -1 );
 	        }
         }
 		
@@ -209,6 +210,9 @@ public class MinHeap {
 		{
 			return "";
 		}
+		
+		
+	
 		
 		for (int i = 0; i < heapSize; i++)
 		{
