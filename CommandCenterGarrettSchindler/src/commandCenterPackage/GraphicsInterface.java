@@ -36,38 +36,40 @@ public class GraphicsInterface extends Application{
 		try {
 			GridPane rootGridPane = new GridPane();
 			rootGridPane.setPrefSize(500, 400);
-			Scene _scene = new Scene(rootGridPane, 1000, 700);
+			Scene _scene = new Scene(rootGridPane, 1000, 500);
 			primaryStage.setScene(_scene);
 			primaryStage.setTitle("Garrett Schindler's Command Center");
+			
 			
 			PersistencePanel activePersistencePanel = new PersistencePanel(programBrains);
 			GridPane.setConstraints(activePersistencePanel, 0, 0);
 			rootGridPane.getChildren().add(activePersistencePanel);
 			
 			RotatingMessagePanel activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
-			GridPane.setConstraints(activeRotatingMessagePanel, 1, 0);
+			GridPane.setConstraints(activeRotatingMessagePanel, 2, 0);
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
 			
 			BacklogPanel activeBacklogPanel = new BacklogPanel(programBrains);
-			GridPane.setConstraints(activeBacklogPanel, 2, 0);
+			GridPane.setConstraints(activeBacklogPanel, 1, 0);
 			rootGridPane.getChildren().add(activeBacklogPanel);
 			
+			
+			
+			PriorityTaskPanel activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
+			GridPane.setConstraints(activePriorityTaskPanel, 2, 2);
+			rootGridPane.getChildren().add(activePriorityTaskPanel);
+			
 			programBrains.saveData();
+			
+			
 			
 			/*
 			 * TODO
 			 * Add elements to GridPane in correct locations
-			 * 
-			 * Add PriorityTaskQueuePanel
-			 * Add RotatingMessagePanel
-			 * Add BacklogPanel
-			 * Add RaceTheComputerPanel
-			 * 
-			 * Add PersistancePanel
-			 * 
 			 */
 			
 			primaryStage.show();
+			
 		} catch (Exception _except) {
 			_except.printStackTrace();
 		}

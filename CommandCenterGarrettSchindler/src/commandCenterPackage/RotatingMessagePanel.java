@@ -21,20 +21,37 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	 */
 	private Controller programBrains;
 	
+	/**
+	 * Button to add a new String message to the RotatingMessagePanel
+	 */
 	private Button addMessageButton;
 	
+	/**
+	 * Button to remove the current String message from the RotatingMessagePanel
+	 */
 	private Button removeMessageButton;
 	
+	/**
+	 * "Textbox" for the user to type in the String message that they want to add
+	 */
 	private TextField messageToAddTF;
 	
+	/**
+	 * String message that is currently shown on the panel
+	 * This message rotates
+	 */
 	private Label shownLabel;
 	
 	
 	RotatingMessagePanel(Controller _programBrains) {
 		
-		
+		// Call to the super conductor
 		super();
 		
+		// HEX Background color setting
+		this.setStyle("-fx-background-color: #b2edc3;");
+		
+		// Passes the controller (programBrains) to the RotatingMessagePanel
 		programBrains = _programBrains;
 		
 		
@@ -42,7 +59,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		addMessageButton.setOnAction(this);
 		
 		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(addMessageButton, 2, 0);
+		GridPane.setConstraints(addMessageButton, 0, 0);
 		GridPane.setMargin(addMessageButton, new Insets(10));
 		
 		this.getChildren().add(addMessageButton);
@@ -52,18 +69,19 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		removeMessageButton.setOnAction(this);
 		
 		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(removeMessageButton, 2, 1);
+		GridPane.setConstraints(removeMessageButton, 0, 1);
 		GridPane.setMargin(removeMessageButton, new Insets(10));
 		
 		this.getChildren().add(removeMessageButton);
 		
 		
 		messageToAddTF = new TextField();
-		messageToAddTF.setPrefColumnCount(20);
+		messageToAddTF.setPrefWidth(150);
+		messageToAddTF.setPromptText("Message to add...");
 		
 		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(messageToAddTF, 3, 0);
-		GridPane.setMargin(removeMessageButton, new Insets(10));
+		GridPane.setConstraints(messageToAddTF, 1, 0);
+		GridPane.setMargin(messageToAddTF, new Insets(10));
 		
 		this.getChildren().add(messageToAddTF);
 		
@@ -71,6 +89,10 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		// TODO Figure out how to use these values
 		shownLabel = new Label("STARTING PROCESSES...");
+		GridPane.setConstraints(shownLabel, 2, 0);
+		GridPane.setMargin(shownLabel, new Insets(10));
+		
+		
 		programBrains.addMessageToRMP("FIRST ITEM SHOWN");
 		programBrains.addMessageToRMP("SECOND ITEM SHOWN");
 		programBrains.addMessageToRMP("THIRD ITEM SHOWN");

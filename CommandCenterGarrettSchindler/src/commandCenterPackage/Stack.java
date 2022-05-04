@@ -1,5 +1,6 @@
 package commandCenterPackage;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 
@@ -104,10 +105,65 @@ public class Stack <T> implements DSStack<T> {
 
 
 	public void loadInData(String loadedString) {
-		// TODO Auto-generated method stub
+
+		int count = 0;
+		String temp = loadedString;
+		ArrayList<String> entries = new ArrayList<String> ();
+		
+		
+		count = countChar(temp, ',');
+		
+		for(int i = 0; i < count; i++)
+		{
+			entries.add(temp.substring(0, temp.indexOf(',')));
+			temp = temp.substring(temp.indexOf(',') + 2, temp.length());
+		}
+		
+		
+		this.clear();
+		
+		for (String entry: entries)
+		{
+			
+			this.push((T)entry);
+		}
 		
 	}
 	
+	
+	/**
+	 * Clear method
+	 * Re-initializes the stack
+	 * Sets size to 0, re-creates head & tail
+	 */
+	private void clear() {
+		size = 0;
+		tail = new ListNode(null, null);
+		head = new ListNode(null, tail);
+		
+	}
+
+
+	/**
+	 * Counts the # of times a character occurs in a string
+	 * @param str entered String
+	 * @param c character that is counted
+	 * @return # of times character occurs in string
+	 */
+	private static int countChar(String str, char c)
+	{
+	    int count = 0;
+
+	    for(int i=0; i < str.length(); i++)
+	    {    
+	    	if(str.charAt(i) == c)
+	        {
+	    		count++;
+	        }
+	    }
+
+	    return count;
+	}
 	
 
 }

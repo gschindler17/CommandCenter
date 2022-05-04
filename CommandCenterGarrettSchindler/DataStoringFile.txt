@@ -1,3 +1,4 @@
-FIRST ITEM SHOWN, SECOND ITEM SHOWN, THIRD ITEM SHOWN, 
-commandCenterPackage.MinHeap@77abc2dc
- 
+BLANK, 
+EMPTY, 
+0, 
+VOID, 

@@ -2,9 +2,10 @@ package commandCenterPackage;
 
 import java.util.ArrayList;
 
-public class MinHeap <T extends Comparable<? super T>>{
 
-	private T[] heapArray;
+public class MinHeap {
+
+	private PriorityNode[] heapArray;
 	private int heapSize;
 	private int maxSize;
 	
@@ -12,7 +13,7 @@ public class MinHeap <T extends Comparable<? super T>>{
 		maxSize = _maxSize;
 		heapSize = 0;
 		
-		heapArray = (T[]) (new Comparable[maxSize]);
+		heapArray = new PriorityNode[maxSize];
 	
 	}
 	
@@ -34,7 +35,7 @@ public class MinHeap <T extends Comparable<? super T>>{
 	
 	private void swap(int firstIndex, int secondIndex)
 	{
-		T temp;
+		PriorityNode temp;
 		temp = heapArray[firstIndex];
 		
 		heapArray[firstIndex] = heapArray[secondIndex];
@@ -79,61 +80,82 @@ public class MinHeap <T extends Comparable<? super T>>{
 
 	// To remove and return the minimum
     // element from the heap
-    public T delete()
+    public PriorityNode delete()
     {
  
-        T popped = heapArray[0];
+        PriorityNode popped = heapArray[0];
         heapArray[0] = heapArray[heapSize--];
         buildHeap(0);
  
         return popped;
     }
 	
-	public void loadInData(String loadedString) {
+	public void loadInData(String messageString, String priorityString) {
 		int count = 0;
-		String temp = loadedString;
-		ArrayList<String> entries = new ArrayList<String> ();
+		String messages = messageString;
+		String priorities = priorityString;
+		ArrayList<String> messagesAL = new ArrayList<String> ();
+		ArrayList<Integer> prioritiesAL = new ArrayList<Integer> ();
 		
 		
-		count = countChar(temp, ',');
-		
-		for(int i = 0; i < count; i++)
-		{
-			entries.add(temp.substring(0, temp.indexOf(',')));
-			temp = temp.substring(temp.indexOf(',') + 2, temp.length());
-		}
-		
+		count = countChar(messages, ',');
 		
 		this.clear();
 		
-		for (String entry: entries)
+		for(int i = 0; i < count; i++)
 		{
+			messagesAL.add(messages.substring(0, messages.indexOf(',')));
+			messages = messages.substring(messages.indexOf(',') + 2, messages.length());
 			
-			this.add((T)entry);
+			prioritiesAL.add(Integer.parseInt(priorities.substring(0, priorities.indexOf(','))));
+			priorities = priorities.substring(priorities.indexOf(',') + 2, priorities.length());
+			
+			
+			this.add(messagesAL.get(i), prioritiesAL.get(i));
 		}
+		
+		
 		
 	}
 	
-	private void add(T entry) throws ArrayIndexOutOfBoundsException {
+	private void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {
 		if (heapSize >= maxSize) {
             throw new ArrayIndexOutOfBoundsException("CANNOT ADD TO MINHEAP, ArrayIndexOutOfBoundsException");
         }
  
-        heapArray[++heapSize] = entry;
+        heapArray[++heapSize] = new PriorityNode((String)data, priorityVal);
         int current = heapSize;
  
-        while (heapArray[current].compareTo(heapArray[parent(current)]) < 0) {
-            swap(current, parent(current));
-            current = parent(current);
+        if (current > 1)
+        {
+	        while (heapArray[current].compareTo(heapArray[parent(current)]) < 0) {
+	        	System.out.println("IN loop");
+	            swap(current, parent(current));
+	            current = parent(current);
+	        }
         }
 		
 	}
-
+	
+	
+	/**
+	 * Clear method
+	 * Re-initializes the MinHeap
+	 * Sets size to 0
+	 */
 	private void clear() {
+		heapSize = 0;
 		
-		
+		heapArray = new PriorityNode[maxSize];
 	}
 
+	
+	/**
+	 * Counts the # of times a character occurs in a string
+	 * @param str entered String
+	 * @param c character that is counted
+	 * @return # of times character occurs in string
+	 */
 	private static int countChar(String str, char c)
 	{
 	    int count = 0;
@@ -145,5 +167,80 @@ public class MinHeap <T extends Comparable<? super T>>{
 
 	    return count;
 	}
+	
+	
+	private class PriorityNode implements Comparable <PriorityNode>{
 		
+		public int priorityVal;
+		public String data;
+		
+		
+		public PriorityNode(String _data, int _priorityVal)
+		{
+			data = _data;
+			priorityVal = _priorityVal;
+		}
+
+
+
+		@Override
+		public int compareTo(PriorityNode parameter) {
+			if (this.priorityVal > parameter.priorityVal)
+			{
+				return 1;
+			}
+			if (this.priorityVal < parameter.priorityVal)
+			{
+				return -1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		
+
+	}
+
+	public String allMessages() {
+		String toReturn = "";
+		
+		if(heapSize == 0)
+		{
+			return "";
+		}
+		
+		for (int i = 0; i < heapSize; i++)
+		{
+			
+			toReturn = toReturn + heapArray[i].data + ", ";
+		}
+	
+		return toReturn;
+	}
+	
+	public String allPriorities() {
+		String toReturn = "";
+		
+		if(heapSize == 0)
+		{
+			return "";
+		} 
+		
+		for (int k = 0; k < heapSize; k++)
+		{
+			toReturn = toReturn + heapArray[k].priorityVal + ", ";
+		}
+		
+		return toReturn;
+	}
+	
+	@Override
+	public String toString() {
+		return this.allMessages() + this.allPriorities();
+	}
+
+
+	
 }
+	

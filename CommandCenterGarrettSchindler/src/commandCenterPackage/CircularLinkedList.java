@@ -321,6 +321,13 @@ public class CircularLinkedList<T> {
 		
 	}
 	
+	
+	/**
+	 * Counts the # of times a character occurs in a string
+	 * @param str entered String
+	 * @param c character that is counted
+	 * @return # of times character occurs in string
+	 */
 	private static int countChar(String str, char c)
 	{
 	    int count = 0;

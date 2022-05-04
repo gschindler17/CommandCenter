@@ -43,6 +43,7 @@ public class PersistencePanel extends GridPane implements EventHandler<ActionEve
 		this.setPadding(new Insets(5));
 		
 		
+		this.setStyle("-fx-background-color: #dff5e5;");
 		
 		
 		// Initializes the SaveButton and makes it clickable

@@ -24,7 +24,7 @@ public class Controller {
 	 * Object that handles the PriorityQueue data
 	 * Type: MinHeap
 	 */
-	private MinHeap<String> priorityMinHeap;
+	private MinHeap priorityMinHeap;
 	
 	
 	private Stack<String> backlogStack;
@@ -38,7 +38,7 @@ public class Controller {
 		
 		
 		rotatingMessages = new CircularLinkedList<String> ();
-		priorityMinHeap = new MinHeap<String> (100);
+		priorityMinHeap = new MinHeap (100);
 		backlogStack = new Stack<String> ();
 		
 		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);
@@ -53,7 +53,7 @@ public class Controller {
 	}
 
 	public void reloadData() {
-		// TODO Auto-generated method stub
+		storageSystem.reloadData();
 		
 	}
 
@@ -88,6 +88,10 @@ public class Controller {
 	}
 	
 	
+	
+
+
+		
 
 	
 }

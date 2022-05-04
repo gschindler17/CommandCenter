@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 
 public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> {
@@ -23,6 +25,12 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 	 */
 	Button removeTaskButton;
 	
+	/**
+	 * TextField to add the message to the Backlog
+	 */
+	TextField backlogTF;
+	
+	
 	
 	/**
 	 * Constructor for a BacklogPanel
@@ -37,7 +45,18 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		// Puts a buffer around the panel so nothing on top of each other
 		this.setPadding(new Insets(5));
 		
+		this.setMinSize(200,100);
 		
+		this.setStyle("-fx-background-color: #f5fcf7;");
+		
+		// Initializes the backlogTF
+		backlogTF = new TextField();
+		backlogTF.setPrefWidth(100);
+		backlogTF.setPromptText("Backlog Task");
+		
+		// backlogTF GridPaneConstraints
+		GridPane.setConstraints(backlogTF, 2, 2);
+		GridPane.setMargin(backlogTF, new Insets(10));
 		
 		
 		// Initializes the addTaskButton and makes it clickable
@@ -50,7 +69,7 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		
 		
 		
-		// Initializes the addTaskButton and makes it clickable
+		// Initializes the removeTaskButton and makes it clickable
 		removeTaskButton = new Button("-"); 		
 		removeTaskButton.setOnAction(this);
 		
@@ -63,6 +82,7 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		// Adds the buttons to the panel; this
 		this.getChildren().add(addTaskButton);
 		this.getChildren().add(removeTaskButton);
+		this.getChildren().add(backlogTF);
 	}
 
 

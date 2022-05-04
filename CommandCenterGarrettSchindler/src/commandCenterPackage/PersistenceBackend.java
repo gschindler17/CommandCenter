@@ -13,7 +13,7 @@ public class PersistenceBackend {
 	
 	private CircularLinkedList<String> RotatingMessageList;
 	
-	private MinHeap<String> PriorityMinHeap;
+	private MinHeap PriorityMinHeap;
 	
 	private Stack<String> BacklogStack;
 	
@@ -37,7 +37,8 @@ public class PersistenceBackend {
 
 			
 			writer.append(RotatingMessageList.toString() + "\n");
-			writer.append(PriorityMinHeap.toString()  + "\n");
+			writer.append(PriorityMinHeap.allMessages()  + "\n");
+			writer.append(PriorityMinHeap.allPriorities() + "\n");
 			writer.append(BacklogStack.toString()  + "\n");
 			writer.flush();
 			writer.close();
@@ -57,7 +58,8 @@ public class PersistenceBackend {
 			PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
 
 			writer.append(RotatingMessageList.toString() + "\n");
-			writer.append(PriorityMinHeap.toString() + "\n");
+			writer.append(PriorityMinHeap.allMessages() + "\n");
+			writer.append(PriorityMinHeap.allPriorities() + "\n");
 			writer.append(BacklogStack.toString() + "\n");
 			writer.flush();
 			writer.close();
@@ -74,17 +76,35 @@ public class PersistenceBackend {
 	}
 
 	public void reloadData() {
-		// TODO Auto-generated method stub
-		
+			try {
+				PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
+
+				writer.append("BLANK, \n");
+				writer.append("EMPTY, \n");
+				writer.append("0, \n");
+				writer.append("VOID, \n");
+				writer.flush();
+				writer.close();
+				
+				
+				this.loadInData();
+				
+				
+			} catch (IOException _exception) {
+				System.out.println("THERE'S AN IO EXCEPTION IN SAVEDATA PERSISTENCE BACKEND");
+			}
 	}
+		
 	
 	
+	@SuppressWarnings("resource")
 	public void loadInData() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("DataStoringFile.txt"));
 			
 			String line = "";
 			StringBuilder content = new StringBuilder();
+			StringBuilder content2 = new StringBuilder();
 			
 			if ((line = reader.readLine()) != null)
 			{
@@ -98,11 +118,14 @@ public class PersistenceBackend {
 			}
 			
 			content = new StringBuilder();
+			content2 = new StringBuilder();
 			if ((line = reader.readLine()) != null)
 			{
 				content.append(line);
-				System.out.println("PriorityMinHeap: " + content);
-				PriorityMinHeap.loadInData(content.toString());
+				line = reader.readLine();
+				content2.append(line);
+				System.out.println("PriorityMinHeap: " + content + content2);
+				PriorityMinHeap.loadInData(content.toString(), content2.toString());
 			}
 			else 
 			{
@@ -120,6 +143,9 @@ public class PersistenceBackend {
 			{
 				throw new IOException("uh oh... no PriorityMinHeap to load");
 			}
+			
+			reader.close();
+			
 		
 		} catch(IOException _exception) {
 			System.out.println("THERE'S AN IO EXCEPTION IN LOADINDATA PERSISTENCE BACKEND");
