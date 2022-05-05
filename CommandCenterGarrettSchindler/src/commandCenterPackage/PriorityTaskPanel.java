@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -28,6 +29,16 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 	 * Button to confirm the data in the TextFields of taskTF & taskPriorityTF
 	 */
 	Button addTaskButton;
+	
+	/**
+	 * Button to remove the top item in the PriorityHeap
+	 */
+	Button removeTaskButton;
+	
+	/**
+	 * Label to show what the top item is in the PriorityHeap
+	 */
+	Label topItemLabel;
 	
 	
 	public PriorityTaskPanel(Controller _programBrains) {
@@ -64,8 +75,17 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		addTaskButton.setOnAction(this);
 		
 		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(addTaskButton, 2, 0);
+		GridPane.setConstraints(addTaskButton, 0, 1);
 		GridPane.setMargin(addTaskButton, new Insets(10));
+		
+		
+		// Initializes the addTaskButton and makes it clickable
+		removeTaskButton = new Button("Remove Task"); 		
+		removeTaskButton.setOnAction(this);
+		
+		// addTaskButton GridPaneConstraints
+		GridPane.setConstraints(removeTaskButton, 1, 1);
+		GridPane.setMargin(removeTaskButton, new Insets(10));
 		
 		
 		
@@ -73,7 +93,13 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		programBrains.addPriorityTask("PRIORITY TASK 1", 10);
 		
 		
+		topItemLabel = new Label(programBrains.getTopPriority());
+		GridPane.setConstraints(topItemLabel, 2, 1);
+		GridPane.setMargin(topItemLabel, new Insets(10));
 		
+		
+		this.getChildren().add(removeTaskButton);
+		this.getChildren().add(topItemLabel);
 		this.getChildren().add(taskTF);
 		this.getChildren().add(taskPriorityTF);
 		this.getChildren().add(addTaskButton);
@@ -89,6 +115,14 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 			String receivedTask = taskTF.getText();
 			int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
 			programBrains.addPriorityTask(receivedTask, receivedPriority);
+			topItemLabel.setText(programBrains.getTopPriority());
+		}
+		
+		if (onClick.getSource() == removeTaskButton)
+		{
+			System.out.println("Removing task from PriorityTaskList");
+			programBrains.deleteTopPriority();
+			topItemLabel.setText(programBrains.getTopPriority());
 		}
 	}
 }

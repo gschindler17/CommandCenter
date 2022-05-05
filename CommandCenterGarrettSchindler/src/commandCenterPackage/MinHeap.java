@@ -83,6 +83,10 @@ public class MinHeap {
 	    return false;
 	}
 
+	
+	public String topPriority() {
+		return heapArray[0].data;
+	}
 
 	// To remove and return the minimum
     // element from the heap

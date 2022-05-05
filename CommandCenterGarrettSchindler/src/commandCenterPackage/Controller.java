@@ -92,6 +92,17 @@ public class Controller {
 		priorityMinHeap.add(receivedTask, receivedPriority);
 		
 	}
+
+
+	public String getTopPriority() {
+		return priorityMinHeap.topPriority();
+	}
+
+
+	public void deleteTopPriority() {
+		priorityMinHeap.delete();
+		
+	}
 	
 	
 	
