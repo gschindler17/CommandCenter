@@ -227,7 +227,6 @@ public class MinHeap {
 	}
 	
 	public String allPriorities() {
-		printHeap();
 		
 		String toReturn = "";
 		

@@ -1,4 +1,4 @@
 FIRST ITEM SHOWN, SECOND ITEM SHOWN, THIRD ITEM SHOWN, 
-one, PRIORITY TASK 1, two, twelve, eleven, four, 
-1, 10, 2, 12, 11, 14, 
+PRIORITY TASK 1, 
+10, 
  
