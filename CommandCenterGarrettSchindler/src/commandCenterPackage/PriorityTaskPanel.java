@@ -70,7 +70,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		
 		
 		//TODO Change
-		programBrains.addPriorityTask("PRIORITY TASK 1", 3);
+		programBrains.addPriorityTask("PRIORITY TASK 1", 10);
 		
 		
 		

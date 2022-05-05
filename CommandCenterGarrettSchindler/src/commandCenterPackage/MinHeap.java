@@ -20,17 +20,17 @@ public class MinHeap {
 	
 	private int parent(int index)
 	{
-		return index / 2;
+		return (index - 1) / 2;
 	}
 	
 	private int leftChild(int index)
-	{
-		return index * 2;
+	{	
+		return (2 * index + 1);
 	}
 	
 	private int rightChild(int index)
 	{
-		return (2 * index) + 1;
+		return (2 * index) + 2;
 	}
 	
 	private void swap(int firstIndex, int secondIndex)
@@ -42,29 +42,35 @@ public class MinHeap {
 		heapArray[secondIndex] = temp;
 	}
 	
-	public void buildHeap(int startingIndex)
-	{
-		// If the node is a non-leaf node and greater
-        // than any of its child
-        if (!isLeaf(startingIndex)) {
-        	if (heapArray[startingIndex].compareTo(heapArray[leftChild(startingIndex)]) > 0 || heapArray[startingIndex].compareTo(heapArray[rightChild(startingIndex)]) > 0)    
-        	{
-                // Swap with the left child and heapify
-                // the left child
-                if (heapArray[leftChild(startingIndex)].compareTo(heapArray[rightChild(startingIndex)]) < 1) {
-                    swap(startingIndex, leftChild(startingIndex));
-                    buildHeap(leftChild(startingIndex));
-                }
- 
-                // Swap with the right child and heapify
-                // the right child
-                else {
-                    swap(startingIndex, rightChild(startingIndex));
-                    buildHeap(rightChild(startingIndex));
-                }
-            }
-        }
-	}
+	
+	// heapify the node at i
+		private void buildHeap(int startingIndex) {
+		// If the node is a non-leaf node and any of its child is smaller
+			if (!isLeaf(startingIndex)) {
+				if (heapArray[startingIndex].compareTo(heapArray[leftChild(startingIndex)]) == 1  ||
+						heapArray[startingIndex].compareTo(heapArray[rightChild(startingIndex)]) == 1 ) {
+					if (heapArray[leftChild(startingIndex)].compareTo(heapArray[rightChild(startingIndex)])  == -1) {
+						swap(startingIndex, leftChild(startingIndex));
+						buildHeap(leftChild(startingIndex));
+					} else {
+						swap(startingIndex, rightChild(startingIndex));
+						buildHeap(rightChild(startingIndex));
+					}
+				}
+			}
+		}
+		
+		// Function to print the contents of the heap
+		public void printHeap() {
+			for (int i = 0; i < (heapSize / 2); i++) {
+				System.out.print("\nParent : " + heapArray[i].priorityVal);
+				if (leftChild(i) < heapSize)
+					System.out.print(" Left : " + heapArray[leftChild(i)].priorityVal);
+				if (rightChild(i) < heapSize)
+					System.out.print(" Right :" + heapArray[rightChild(i)].priorityVal);
+				System.out.println();
+			}
+		}
 	
 	
 	private boolean isLeaf(int startingIndex) {
@@ -118,23 +124,19 @@ public class MinHeap {
 		
 	}
 	
-	public void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {
-		if (heapSize >= maxSize) {
-            throw new ArrayIndexOutOfBoundsException("CANNOT ADD TO MINHEAP, ArrayIndexOutOfBoundsException");
-        }
- 
-		PriorityNode toAdd = new PriorityNode((String)data, priorityVal);		
+	public void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {		
 		
-        heapArray[heapSize++] = new PriorityNode((String)data, priorityVal);
-        int current = heapSize;
-        
-        if (current > 1)
-        {
-	        while (heapArray[current - 1].compareTo(heapArray[parent(current )]) < 0) {
-	            swap(current -1, parent(current -1 ));
-	            current = parent(current -1 );
-	        }
-        }
+		if (heapSize >= maxSize) {
+			return;
+		}
+		heapArray[heapSize] = new PriorityNode(data, priorityVal);
+		int current = heapSize;
+
+		while (heapArray[current].compareTo(heapArray[parent(current)]) < 0) {
+			swap(current, parent(current));
+			current = parent(current);
+		}
+		heapSize++;
 		
 	}
 	
@@ -203,7 +205,8 @@ public class MinHeap {
 
 	}
 
-	public String allMessages() {
+	public String allMessages() {		
+		
 		String toReturn = "";
 		
 		if(heapSize == 0)
@@ -224,6 +227,8 @@ public class MinHeap {
 	}
 	
 	public String allPriorities() {
+		printHeap();
+		
 		String toReturn = "";
 		
 		if(heapSize == 0)
