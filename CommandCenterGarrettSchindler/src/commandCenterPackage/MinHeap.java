@@ -85,6 +85,11 @@ public class MinHeap {
 
 	
 	public String topPriority() {
+		if (heapSize < 1)
+		{
+			return "EMPTY";
+		}
+		
 		return heapArray[0].data;
 	}
 
@@ -95,7 +100,10 @@ public class MinHeap {
  
         PriorityNode popped = heapArray[0];
         heapArray[0] = heapArray[heapSize--];
-        buildHeap(0);
+        if (heapSize > 0)
+        {
+        	buildHeap(0);
+        }
  
         return popped;
     }

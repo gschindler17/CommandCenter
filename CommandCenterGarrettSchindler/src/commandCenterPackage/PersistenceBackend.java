@@ -79,10 +79,10 @@ public class PersistenceBackend {
 			try {
 				PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
 
+				writer.append("\n");
+				writer.append("\n");
+				writer.append("\n");
 				writer.append("BLANK, \n");
-				writer.append("EMPTY, \n");
-				writer.append("0, \n");
-				writer.append("VOID, \n");
 				writer.flush();
 				writer.close();
 				

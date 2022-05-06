@@ -228,11 +228,11 @@ public class CircularLinkedList<T> {
 		// If the currentNode is null, throw exception
 		if (currentNode == null)
 		{
-			throw new NullPointerException("NOTHING IN LINKEDLIST!!");
+			return ("EMPTY");
 		}
 		
 		// If the currentNode has no data, throw exception
-		if (currentNode.rdata == null)
+		else if (currentNode.rdata == null)
 		{
 			throw new NullPointerException("You must add a value to the list to continue");
 		}
@@ -262,7 +262,7 @@ public class CircularLinkedList<T> {
 	    }
 	    
 		// if the currentNode is the head and there is more than 1 item in array
-	    if (temp == currentNode && size > 1)
+	    if (temp == currentNode && size > 0)
 	    {
 	    	// Go to the node before currentNode
 	    	for (int k = 0; k < size - 1; k++)
