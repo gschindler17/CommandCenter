@@ -56,8 +56,12 @@ public class GraphicsInterface extends Application{
 			
 			
 			PriorityTaskPanel activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
-			GridPane.setConstraints(activePriorityTaskPanel, 2, 2);
+			GridPane.setConstraints(activePriorityTaskPanel, 2, 1);
 			rootGridPane.getChildren().add(activePriorityTaskPanel);
+			
+			RaceTheComputerPanel activeRTCP = new RaceTheComputerPanel(programBrains);
+			GridPane.setConstraints(activeRTCP, 0, 1);
+			rootGridPane.getChildren().add(activeRTCP);
 			
 			programBrains.saveData();
 			

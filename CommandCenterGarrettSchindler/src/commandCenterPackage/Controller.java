@@ -30,6 +30,9 @@ public class Controller {
 	private Stack<String> backlogStack;
 	
 	
+	private BinarySearchBackend BSBackend;
+	
+	
 	
 	
 	
@@ -40,6 +43,7 @@ public class Controller {
 		rotatingMessages = new CircularLinkedList<String> ();
 		priorityMinHeap = new MinHeap (100);
 		backlogStack = new Stack<String> ();
+		BSBackend = new BinarySearchBackend(4);
 		
 		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);
 		
@@ -103,6 +107,62 @@ public class Controller {
 		priorityMinHeap.delete();
 		
 	}
+
+
+	public int minBSVal() {
+		return BSBackend.getMinGuess();
+	}
+	
+	public int maxBSVal() {
+		return BSBackend.getMaxGuess();
+	}
+
+
+	public int compareBSGuess(int _guess) {
+		return BSBackend.compareUserGuessToRN(_guess);
+	}
+
+
+	public void incrementGuessNumber() {
+		BSBackend.incrementGuessNumber();
+		
+	}
+
+
+	public int getGuessNumber() {
+		return BSBackend.getGuessNumber();
+	}
+
+
+	public int getBSNumber() {
+		return BSBackend.getRN();
+	}
+
+
+	public int getBSComputerGuesses() {
+		return BSBackend.numberOfComputerGuesses();
+	}
+	
+	public void resetBSBackend() {
+		BSBackend.reset();
+	}
+
+
+	public void addBacklogItem(String text) {
+		backlogStack.push(text);
+	}
+
+
+	public void removeBacklogItem() {
+		backlogStack.pop();
+	}
+
+
+	public String getBacklog() {
+		return backlogStack.toString();
+	}
+	
+	
 	
 	
 	

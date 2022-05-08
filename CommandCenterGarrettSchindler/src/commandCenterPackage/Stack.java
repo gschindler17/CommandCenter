@@ -37,16 +37,20 @@ public class Stack <T> implements DSStack<T> {
 	}
 
 	@Override
-	public void push(T element){
+	public void push(T element) {
 		
-		ListNode newNode = new ListNode(element, head.next);
-		head.next = newNode;
 		size++;
+		ListNode newNode = new ListNode(element, head.next);
+		
+		head.next = newNode;
+	
+		
 		
 	}
 
 	@Override
 	public T pop() throws EmptyStackException {
+				
 		if (head.next == tail)
 		{
 			throw new EmptyStackException();
@@ -55,6 +59,7 @@ public class Stack <T> implements DSStack<T> {
 		ListNode toReturn = head.next;
 		head.next = head.next.next;
 		size--;
+		
 		return toReturn.data;
 		
 	}
@@ -72,9 +77,9 @@ public class Stack <T> implements DSStack<T> {
 	
 	private class ListNode{
 		// The data to store in this node:
-		T data;
+		public T data;
 		// A "pointer" to the next node or null at the end of the list
-		ListNode next;
+		public ListNode next;
 		
 		/**
 		 * Constructor
@@ -95,7 +100,7 @@ public class Stack <T> implements DSStack<T> {
 		
 		while (prev.next != tail)
 		{
-			toReturn = toReturn + prev.next.data;
+			toReturn = toReturn + prev.next.data + ", ";
 			prev = prev.next;
 		}
 		
@@ -106,6 +111,7 @@ public class Stack <T> implements DSStack<T> {
 
 	public void loadInData(String loadedString) {
 
+		
 		int count = 0;
 		String temp = loadedString;
 		ArrayList<String> entries = new ArrayList<String> ();
@@ -115,7 +121,7 @@ public class Stack <T> implements DSStack<T> {
 		
 		for(int i = 0; i < count; i++)
 		{
-			entries.add(temp.substring(0, temp.indexOf(',')));
+			entries.add(0, temp.substring(0, temp.indexOf(',')));
 			temp = temp.substring(temp.indexOf(',') + 2, temp.length());
 		}
 		

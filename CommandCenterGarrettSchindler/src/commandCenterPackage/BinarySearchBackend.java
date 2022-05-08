@@ -7,10 +7,12 @@ public class BinarySearchBackend {
 	private int maxSize;
 	private int[] binaryArray;
 	private int currentRN;
+	private int guessNumber;
 	
 	
 	public BinarySearchBackend(int _maxSize)
 	{
+		guessNumber = 0;
 		maxSize = _maxSize;
 		binaryArray = new int[maxSize];
 		newRandomNumber();
@@ -59,7 +61,6 @@ public class BinarySearchBackend {
 			{
 				min = mid+1;
 			}
-			return -1; //target is not in the array
 		}
 		return numberOfGuesses;
 	}
@@ -67,7 +68,11 @@ public class BinarySearchBackend {
 	
 	
 	
-	
+	/**
+	 * Compares an integer value to what the random number is
+	 * @param userGuess what the user has guessed
+	 * @return 1 if parameter/guess is greater than number; 0 if equal; -1 if parameter/guess is less than random number
+	 */
 	public int compareUserGuessToRN(int userGuess)
 	{
 		if (userGuess > currentRN)
@@ -82,6 +87,32 @@ public class BinarySearchBackend {
 		{
 			return -1;
 		}
+	}
+
+
+	public int getMinGuess() {
+		return 0;		
+	}
+
+
+	public int getMaxGuess() {
+		return maxSize - 1;
+	}
+
+
+	public void incrementGuessNumber() {
+		guessNumber++;
+	}
+	
+	public int getGuessNumber() {
+		return guessNumber;
+	}
+
+
+	public void reset() {
+		newRandomNumber();
+		guessNumber = 0;
+		
 	}
 	
 	
