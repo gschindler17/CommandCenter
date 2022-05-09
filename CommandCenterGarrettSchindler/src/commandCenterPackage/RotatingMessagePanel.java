@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -58,8 +59,8 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		addMessageButton = new Button("Add message:");
 		addMessageButton.setOnAction(this);
 		
-		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(addMessageButton, 0, 0);
+		// addMessageButton GridPaneConstraints
+		GridPane.setConstraints(addMessageButton, 0, 1);
 		GridPane.setMargin(addMessageButton, new Insets(10));
 		
 		this.getChildren().add(addMessageButton);
@@ -68,8 +69,8 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		removeMessageButton = new Button("Remove current message");
 		removeMessageButton.setOnAction(this);
 		
-		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(removeMessageButton, 0, 1);
+		// removeMessageButton GridPaneConstraints
+		GridPane.setConstraints(removeMessageButton, 1, 1);
 		GridPane.setMargin(removeMessageButton, new Insets(10));
 		
 		this.getChildren().add(removeMessageButton);
@@ -79,8 +80,8 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		messageToAddTF.setPrefWidth(150);
 		messageToAddTF.setPromptText("Message to add...");
 		
-		// addTaskButton GridPaneConstraints
-		GridPane.setConstraints(messageToAddTF, 1, 0);
+		// messageToAddTF GridPaneConstraints
+		GridPane.setConstraints(messageToAddTF, 0, 0);
 		GridPane.setMargin(messageToAddTF, new Insets(10));
 		
 		this.getChildren().add(messageToAddTF);
@@ -88,16 +89,17 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		
 		// TODO Figure out how to use these values
-		shownLabel = new Label("STARTING PROCESSES...");
-		GridPane.setConstraints(shownLabel, 2, 0);
+		shownLabel = new Label("Waiting for first message...");
+		GridPane.setConstraints(shownLabel, 1, 0);
 		GridPane.setMargin(shownLabel, new Insets(10));
 		
 		
-		programBrains.addMessageToRMP("FIRST ITEM SHOWN");
-		programBrains.addMessageToRMP("SECOND ITEM SHOWN");
-		programBrains.addMessageToRMP("THIRD ITEM SHOWN");
+//		programBrains.addMessageToRMP("FIRST ITEM SHOWN");
+//		programBrains.addMessageToRMP("SECOND ITEM SHOWN");
+//		programBrains.addMessageToRMP("THIRD ITEM SHOWN");
+//		System.out.println(programBrains.getRotatingMessages());
 		
-		System.out.println(programBrains.getRotatingMessages());
+		
 		this.getChildren().add(shownLabel);
 			
 		
@@ -152,20 +154,33 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 	public void handle(ActionEvent onClick) {
 		if (onClick.getSource() == addMessageButton)
 		{
-			System.out.println("Adding Message to Rotating Message Panel");
-			
-			String receivedMessage = messageToAddTF.getText();
-			
-			programBrains.addMessageToRMP(receivedMessage);
-			
+			try {
+				System.out.println("Adding Message to Rotating Message Panel");
+				String receivedMessage = messageToAddTF.getText();
+				programBrains.addMessageToRMP(receivedMessage);
+				programBrains.saveData();
+			}  catch (Exception _exception) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	    		alert.setTitle("Something doesn't look right...");
+	    		alert.setContentText(_exception.getMessage());
+	    		alert.showAndWait();
+			}
 			
 		}
 		
 		if (onClick.getSource() == removeMessageButton)
 		{
-			System.out.println("Deleting Message from Rotating Message Panel");
 			
-			programBrains.removeMessageFromRMP();
+			try{
+				System.out.println("Deleting Message from Rotating Message Panel");
+				programBrains.removeMessageFromRMP();
+				programBrains.saveData();
+			}  catch (Exception _exception) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	    		alert.setTitle("Something doesn't look right...");
+	    		alert.setContentText(_exception.getMessage());
+	    		alert.showAndWait();
+			}
 		}
 		
 	}

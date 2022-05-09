@@ -258,7 +258,7 @@ public class CircularLinkedList<T> {
 		
 	    // if the CircularLinkedList is empty, return
 		if (head == null) { // the list is empty
-	        return;
+			throw new IllegalArgumentException("Cannot delete from an empty circular linked list!");
 	    }
 	    
 		// if the currentNode is the head and there is more than 1 item in array

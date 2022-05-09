@@ -3,6 +3,7 @@ package commandCenterPackage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -88,11 +89,6 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		GridPane.setMargin(removeTaskButton, new Insets(10));
 		
 		
-		
-		//TODO Change
-		programBrains.addPriorityTask("PRIORITY TASK 1", 10);
-		
-		
 		topItemLabel = new Label(programBrains.getTopPriority());
 		GridPane.setConstraints(topItemLabel, 2, 1);
 		GridPane.setMargin(topItemLabel, new Insets(10));
@@ -111,18 +107,32 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 	public void handle(ActionEvent onClick) {
 		if (onClick.getSource() == addTaskButton)
 		{
-			System.out.println("Adding task to PriorityTaskList");
-			String receivedTask = taskTF.getText();
-			int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
-			programBrains.addPriorityTask(receivedTask, receivedPriority);
-			topItemLabel.setText(programBrains.getTopPriority());
+			try {
+				System.out.println("Adding task to PriorityTaskList");
+				String receivedTask = taskTF.getText();
+				int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
+				programBrains.addPriorityTask(receivedTask, receivedPriority);
+				topItemLabel.setText(programBrains.getTopPriority());
+			} catch (Exception _exception) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	    		alert.setTitle("Something doesn't look right...");
+	    		alert.setContentText(_exception.getMessage());
+	    		alert.showAndWait();
+			}
 		}
 		
 		if (onClick.getSource() == removeTaskButton)
 		{
-			System.out.println("Removing task from PriorityTaskList");
-			programBrains.deleteTopPriority();
-			topItemLabel.setText(programBrains.getTopPriority());
+			try {
+				System.out.println("Removing task from PriorityTaskList");
+				programBrains.deleteTopPriority();
+				topItemLabel.setText(programBrains.getTopPriority());
+			} catch (Exception _exception) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	    		alert.setTitle("Something doesn't look right...");
+	    		alert.setContentText(_exception.getMessage());
+	    		alert.showAndWait();
+			}
 		}
 	}
 }

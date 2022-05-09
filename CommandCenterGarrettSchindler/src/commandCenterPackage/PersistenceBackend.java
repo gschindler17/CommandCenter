@@ -17,8 +17,6 @@ public class PersistenceBackend {
 	
 	private Stack<String> BacklogStack;
 	
-	private FileWriter writer;
-	
 	private File outputFile;
 	
 	
@@ -27,26 +25,10 @@ public class PersistenceBackend {
 		RotatingMessageList = _circularLinkedList;
 		PriorityMinHeap = _minHeap;
 		BacklogStack = _stack;
-		
-		
-		System.out.println("IN CONSTRUCTOR");	
-		
-		
-		try {
-			PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
-
+		outputFile = new File("DataStoringFile.txt");
 			
-			writer.append(RotatingMessageList.toString() + "\n");
-			writer.append(PriorityMinHeap.allMessages()  + "\n");
-			writer.append(PriorityMinHeap.allPriorities() + "\n");
-			writer.append(BacklogStack.toString()  + "\n");
-			writer.flush();
-			writer.close();
-			
-		} catch (IOException _exception) {
-			System.out.println("THERE'S AN IO EXCEPTION IN PERSISTENCE BACKEND");
-		}
 		
+		loadInData();		
 		
 				
 	}
@@ -55,7 +37,7 @@ public class PersistenceBackend {
 	public void saveData() {
 		
 		try {
-			PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
+			PrintWriter writer = new PrintWriter(new FileWriter(outputFile));
 
 			writer.append(RotatingMessageList.toString() + "\n");
 			writer.append(PriorityMinHeap.allMessages() + "\n");
@@ -77,12 +59,12 @@ public class PersistenceBackend {
 
 	public void reloadData() {
 			try {
-				PrintWriter writer = new PrintWriter(new FileWriter("DataStoringFile.txt"));
+				PrintWriter writer = new PrintWriter(new FileWriter(outputFile));
 
 				writer.append("\n");
 				writer.append("\n");
 				writer.append("\n");
-				writer.append("BLANK, \n");
+				writer.append("\n");
 				writer.flush();
 				writer.close();
 				
@@ -100,7 +82,7 @@ public class PersistenceBackend {
 	@SuppressWarnings("resource")
 	public void loadInData() {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("DataStoringFile.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader(outputFile));
 			
 			String line = "";
 			StringBuilder content = new StringBuilder();

@@ -97,6 +97,10 @@ public class MinHeap {
     // element from the heap
     public PriorityNode delete()
     {
+    	if (heapSize == 0)
+    	{
+    		throw new IllegalArgumentException("Cannot delete from an empty heap!");
+    	}
  
         PriorityNode popped = heapArray[0];
         heapArray[0] = heapArray[heapSize--];

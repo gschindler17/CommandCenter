@@ -49,11 +49,11 @@ public class Stack <T> implements DSStack<T> {
 	}
 
 	@Override
-	public T pop() throws EmptyStackException {
+	public T pop() throws IllegalArgumentException {
 				
 		if (head.next == tail)
 		{
-			throw new EmptyStackException();
+			throw new IllegalArgumentException("Cannot delete from an empty stack");
 		}
 		
 		ListNode toReturn = head.next;

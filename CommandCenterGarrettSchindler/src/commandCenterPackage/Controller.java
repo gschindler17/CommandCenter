@@ -43,10 +43,9 @@ public class Controller {
 		rotatingMessages = new CircularLinkedList<String> ();
 		priorityMinHeap = new MinHeap (100);
 		backlogStack = new Stack<String> ();
-		BSBackend = new BinarySearchBackend(4);
+		BSBackend = new BinarySearchBackend(100);
 		
 		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);
-		
 		
 	}
 	
@@ -54,6 +53,10 @@ public class Controller {
 	public void saveData() {
 		storageSystem.saveData();
 		
+	}
+	
+	public void loadData() {
+		storageSystem.loadInData();
 	}
 
 	public void reloadData() {

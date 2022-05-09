@@ -36,7 +36,7 @@ public class GraphicsInterface extends Application{
 		try {
 			GridPane rootGridPane = new GridPane();
 			rootGridPane.setPrefSize(500, 400);
-			Scene _scene = new Scene(rootGridPane, 1000, 500);
+			Scene _scene = new Scene(rootGridPane, 800, 500);
 			primaryStage.setScene(_scene);
 			primaryStage.setTitle("Garrett Schindler's Command Center");
 			
@@ -46,21 +46,21 @@ public class GraphicsInterface extends Application{
 			rootGridPane.getChildren().add(activePersistencePanel);
 			
 			RotatingMessagePanel activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
-			GridPane.setConstraints(activeRotatingMessagePanel, 2, 0);
+			GridPane.setConstraints(activeRotatingMessagePanel, 1, 0);
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
 			
 			BacklogPanel activeBacklogPanel = new BacklogPanel(programBrains);
-			GridPane.setConstraints(activeBacklogPanel, 1, 0);
+			GridPane.setConstraints(activeBacklogPanel, 0, 1);
 			rootGridPane.getChildren().add(activeBacklogPanel);
 			
 			
 			
 			PriorityTaskPanel activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
-			GridPane.setConstraints(activePriorityTaskPanel, 2, 1);
+			GridPane.setConstraints(activePriorityTaskPanel, 1, 1);
 			rootGridPane.getChildren().add(activePriorityTaskPanel);
 			
 			RaceTheComputerPanel activeRTCP = new RaceTheComputerPanel(programBrains);
-			GridPane.setConstraints(activeRTCP, 0, 1);
+			GridPane.setConstraints(activeRTCP, 0, 2);
 			rootGridPane.getChildren().add(activeRTCP);
 			
 			programBrains.saveData();
