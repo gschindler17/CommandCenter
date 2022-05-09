@@ -45,8 +45,7 @@ public class PersistenceBackend {
 			writer.append(BacklogStack.toString() + "\n");
 			writer.flush();
 			writer.close();
-			
-			
+
 			this.loadInData();
 			
 			
@@ -67,7 +66,6 @@ public class PersistenceBackend {
 				writer.append("\n");
 				writer.flush();
 				writer.close();
-				
 				
 				this.loadInData();
 				

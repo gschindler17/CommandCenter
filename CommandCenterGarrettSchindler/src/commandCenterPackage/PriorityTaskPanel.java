@@ -110,6 +110,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 			try {
 				System.out.println("Adding task to PriorityTaskList");
 				String receivedTask = taskTF.getText();
+				taskTF.clear();
 				int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
 				programBrains.addPriorityTask(receivedTask, receivedPriority);
 				topItemLabel.setText(programBrains.getTopPriority());
@@ -126,6 +127,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 			try {
 				System.out.println("Removing task from PriorityTaskList");
 				programBrains.deleteTopPriority();
+				taskTF.clear();
 				topItemLabel.setText(programBrains.getTopPriority());
 			} catch (Exception _exception) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,5 +136,11 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 	    		alert.showAndWait();
 			}
 		}
+	}
+
+
+	public void update() {
+		topItemLabel.setText(programBrains.getTopPriority());
+		taskTF.clear();
 	}
 }

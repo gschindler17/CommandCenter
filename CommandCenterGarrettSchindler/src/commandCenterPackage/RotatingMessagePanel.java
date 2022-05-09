@@ -89,7 +89,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		
 		
 		// TODO Figure out how to use these values
-		shownLabel = new Label("Waiting for first message...");
+		shownLabel = new Label(" ");
 		GridPane.setConstraints(shownLabel, 1, 0);
 		GridPane.setMargin(shownLabel, new Insets(10));
 		
@@ -183,6 +183,13 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 			}
 		}
 		
+	}
+
+
+
+
+	public void update() {
+		// Updates to the panel
 	}
 
 

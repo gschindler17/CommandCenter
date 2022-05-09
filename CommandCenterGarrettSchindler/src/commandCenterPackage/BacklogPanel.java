@@ -56,12 +56,14 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		this.setPadding(new Insets(5));
 		
 		
-		this.setStyle("-fx-background-color: #f5fcf7;");
+		this.setStyle("-fx-background-color: #afe0b4;");
 		
 		
 		// Initializes the backlogLabel
 		backlogLabel = new Label("Add item to backlog...");
 		backlogLabel.setPrefWidth(150);
+		backlogLabel.setMinHeight(140);
+		backlogLabel.setMaxHeight(140);
 		GridPane.setConstraints(backlogLabel, 1, 0);
 		GridPane.setMargin(backlogLabel, new Insets(10));
 		
@@ -187,6 +189,12 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 	    }
 
 	    return count;
+	}
+
+
+	public void update() {
+		updateLabel();
+		backlogTF.clear();
 	}
 	
 	

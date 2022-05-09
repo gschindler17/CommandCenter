@@ -3,6 +3,7 @@ package commandCenterPackage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -134,33 +135,63 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 		public void handle(ActionEvent onClick) {
 			if (onClick.getSource() == submitButton)
 			{
-				System.out.println("Submitting guess");
-				int receivedGuess = Integer.parseInt(userGuessTF.getText());
-				userGuessTF.clear();
-				programBrains.incrementGuessNumber();
-				responseToGuessLabel.setText("Your guess was " + this.getComparison(receivedGuess) + " my number");
-				guessCounterLabel.setText("Number of guesses: " + programBrains.getGuessNumber());
-				
-				if (programBrains.compareBSGuess(receivedGuess) == 0)
+				try 
 				{
-					correctNumberLabel.setVisible(true);
-					computerGuessesLabel.setVisible(true);
+					System.out.println("Submitting guess");
+					int receivedGuess = Integer.parseInt(userGuessTF.getText());
+					userGuessTF.clear();
+					programBrains.incrementGuessNumber();
+					responseToGuessLabel.setText("Your guess was " + this.getComparison(receivedGuess) + " my number");
+					guessCounterLabel.setText("Number of guesses: " + programBrains.getGuessNumber());
+					
+					if (programBrains.compareBSGuess(receivedGuess) == 0)
+					{
+						correctNumberLabel.setVisible(true);
+						computerGuessesLabel.setVisible(true);
+					}
+				} catch(Exception _exception)
+				{
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		    		alert.setTitle("Something doesn't look right...");
+		    		alert.setContentText(_exception.getMessage());
+		    		alert.showAndWait();
 				}
 				
 			}
 			
 			if (onClick.getSource() == resetNumber)
 			{
-				programBrains.resetBSBackend();
-				userGuessTF.clear();
-				rangeLabel.setText("I have a number between " + programBrains.minBSVal() + " and " + programBrains.maxBSVal());
-				guessCounterLabel.setText("Number of guesses: 0");
-				responseToGuessLabel.setText("Waiting for your guess");
-				correctNumberLabel.setText("My number was: " + programBrains.getBSNumber());
-				computerGuessesLabel.setText("The computer guessed my number in " + programBrains.getBSComputerGuesses() + " guesses");
-				correctNumberLabel.setVisible(false);
-				computerGuessesLabel.setVisible(false);
+				try
+				{
+					reset();
+				} catch(Exception _exception)
+				{
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		    		alert.setTitle("Something doesn't look right...");
+		    		alert.setContentText(_exception.getMessage());
+		    		alert.showAndWait();
+				}
 			}
+		}
+
+		/**
+		 * Updates the RaceTheComputerPanel
+		 */
+		public void update() {
+			reset();
+		}
+		
+		
+		private void reset() {
+			programBrains.resetBSBackend();
+			userGuessTF.clear();
+			rangeLabel.setText("I have a number between " + programBrains.minBSVal() + " and " + programBrains.maxBSVal());
+			guessCounterLabel.setText("Number of guesses: 0");
+			responseToGuessLabel.setText("Waiting for your guess");
+			correctNumberLabel.setText("My number was: " + programBrains.getBSNumber());
+			computerGuessesLabel.setText("The computer guessed my number in " + programBrains.getBSComputerGuesses() + " guesses");
+			correctNumberLabel.setVisible(false);
+			computerGuessesLabel.setVisible(false);
 		}
 	}
 

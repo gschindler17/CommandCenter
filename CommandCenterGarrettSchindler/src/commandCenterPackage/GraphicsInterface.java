@@ -28,11 +28,22 @@ public class GraphicsInterface extends Application{
 	 * This handles all of the computations of the program
 	 * Controller within MVC
 	 */
-	private Controller programBrains = new Controller();
+	private Controller programBrains;
+	
+	private PersistencePanel activePersistencePanel;
+	
+	private RotatingMessagePanel activeRotatingMessagePanel;
+	
+	private BacklogPanel activeBacklogPanel;
+	
+	private PriorityTaskPanel activePriorityTaskPanel;
+	
+	private RaceTheComputerPanel activeRTCP;
 	
 	
 	@Override
 	public void start(Stage primaryStage) {
+		programBrains = new Controller(this);
 		try {
 			GridPane rootGridPane = new GridPane();
 			rootGridPane.setPrefSize(500, 400);
@@ -41,42 +52,42 @@ public class GraphicsInterface extends Application{
 			primaryStage.setTitle("Garrett Schindler's Command Center");
 			
 			
-			PersistencePanel activePersistencePanel = new PersistencePanel(programBrains);
+			activePersistencePanel = new PersistencePanel(programBrains);
 			GridPane.setConstraints(activePersistencePanel, 0, 0);
-			rootGridPane.getChildren().add(activePersistencePanel);
 			
-			RotatingMessagePanel activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
+			
+			activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
 			GridPane.setConstraints(activeRotatingMessagePanel, 1, 0);
-			rootGridPane.getChildren().add(activeRotatingMessagePanel);
-			
-			BacklogPanel activeBacklogPanel = new BacklogPanel(programBrains);
-			GridPane.setConstraints(activeBacklogPanel, 0, 1);
-			rootGridPane.getChildren().add(activeBacklogPanel);
 			
 			
+			activeBacklogPanel = new BacklogPanel(programBrains);
+			GridPane.setConstraints(activeBacklogPanel, 0, 2);	
 			
-			PriorityTaskPanel activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
+			
+			activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
 			GridPane.setConstraints(activePriorityTaskPanel, 1, 1);
-			rootGridPane.getChildren().add(activePriorityTaskPanel);
 			
-			RaceTheComputerPanel activeRTCP = new RaceTheComputerPanel(programBrains);
-			GridPane.setConstraints(activeRTCP, 0, 2);
+			
+			activeRTCP = new RaceTheComputerPanel(programBrains);
+			GridPane.setConstraints(activeRTCP, 0, 1);
+			
+		
+			updateAll();
+		
+			
+			rootGridPane.getChildren().add(activePersistencePanel);
+			rootGridPane.getChildren().add(activeRotatingMessagePanel);
+			rootGridPane.getChildren().add(activeBacklogPanel);
+			rootGridPane.getChildren().add(activePriorityTaskPanel);
 			rootGridPane.getChildren().add(activeRTCP);
 			
-			programBrains.saveData();
-			
-			
-			
-			/*
-			 * TODO
-			 * Add elements to GridPane in correct locations
-			 */
 			
 			primaryStage.show();
 			
 		} catch (Exception _except) {
 			_except.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -86,5 +97,15 @@ public class GraphicsInterface extends Application{
 	 */
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	
+	
+	public void updateAll() {
+		this.activePersistencePanel.update();
+		this.activeRotatingMessagePanel.update();
+		this.activeBacklogPanel.update();
+		this.activePriorityTaskPanel.update();
+		this.activeRTCP.update();
 	}
 }

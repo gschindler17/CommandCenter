@@ -32,13 +32,16 @@ public class Controller {
 	
 	private BinarySearchBackend BSBackend;
 	
+	private GraphicsInterface graphicsInterface;
 	
 	
 	
 	
 	
-	public Controller() {
+	
+	public Controller(GraphicsInterface _graphicsInterface) {
 		
+		this.graphicsInterface = _graphicsInterface;
 		
 		rotatingMessages = new CircularLinkedList<String> ();
 		priorityMinHeap = new MinHeap (100);
@@ -47,20 +50,24 @@ public class Controller {
 		
 		storageSystem = new PersistenceBackend(rotatingMessages, priorityMinHeap, backlogStack);
 		
+		
 	}
 	
 	
 	public void saveData() {
 		storageSystem.saveData();
+		graphicsInterface.updateAll();
 		
 	}
 	
 	public void loadData() {
 		storageSystem.loadInData();
+		graphicsInterface.updateAll();
 	}
 
 	public void reloadData() {
 		storageSystem.reloadData();
+		graphicsInterface.updateAll();
 		
 	}
 
@@ -164,6 +171,9 @@ public class Controller {
 	public String getBacklog() {
 		return backlogStack.toString();
 	}
+	
+	
+	
 	
 	
 	
