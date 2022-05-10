@@ -45,19 +45,29 @@ public class MinHeap {
 	
 	// heapify the node at i
 		private void buildHeap(int startingIndex) {
-		// If the node is a non-leaf node and any of its child is smaller
-			if (!isLeaf(startingIndex)) {
-				if (heapArray[startingIndex].compareTo(heapArray[leftChild(startingIndex)]) == 1  ||
-						heapArray[startingIndex].compareTo(heapArray[rightChild(startingIndex)]) == 1 ) {
-					if (heapArray[leftChild(startingIndex)].compareTo(heapArray[rightChild(startingIndex)])  == -1) {
-						swap(startingIndex, leftChild(startingIndex));
-						buildHeap(leftChild(startingIndex));
-					} else {
-						swap(startingIndex, rightChild(startingIndex));
-						buildHeap(rightChild(startingIndex));
-					}
-				}
-			}
+			// If the node is a non-leaf node and greater
+	        // than any of its child
+	        if (!isLeaf(startingIndex)) {
+	            if ((heapArray[leftChild(startingIndex)] != null && heapArray[startingIndex].priorityVal > heapArray[leftChild(startingIndex)].priorityVal)
+	                || (heapArray[rightChild(startingIndex)] != null && heapArray[startingIndex].priorityVal > heapArray[rightChild(startingIndex)].priorityVal)) {
+	 
+	                // Swap with the left child and heapify
+	                // the left child
+	                if (heapArray[leftChild(startingIndex)].priorityVal
+	                    < heapArray[rightChild(startingIndex)].priorityVal) {
+	                    swap(startingIndex, leftChild(startingIndex));
+	                    System.out.println(leftChild(startingIndex));
+	                    buildHeap(leftChild(startingIndex));
+	                }
+	 
+	                // Swap with the right child and heapify
+	                // the right child
+	                else {
+	                    swap(startingIndex, rightChild(startingIndex));
+	                    buildHeap(rightChild(startingIndex));
+	                }
+	            }
+	        }
 		}
 		
 		// Function to print the contents of the heap
@@ -97,13 +107,27 @@ public class MinHeap {
     // element from the heap
     public PriorityNode delete()
     {
+    	
+    	
     	if (heapSize == 0)
     	{
     		throw new IllegalArgumentException("Cannot delete from an empty heap!");
     	}
  
         PriorityNode popped = heapArray[0];
-        heapArray[0] = heapArray[heapSize--];
+        
+        heapSize--;
+        
+        heapArray[0] = heapArray[heapSize];
+        
+        
+        // TODO Remove printing for loop
+        for (int i = 0; i < heapSize; i++)
+        {
+        	
+        	System.out.print("i value: " + i + "    priVal: " + heapArray[i].priorityVal + "     " +  heapArray[i].data  + ", ");
+        }
+        
         if (heapSize > 0)
         {
         	buildHeap(0);
@@ -143,7 +167,7 @@ public class MinHeap {
 	public void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {		
 		
 		if (heapSize >= maxSize) {
-			return;
+			throw new ArrayIndexOutOfBoundsException();
 		}
 		heapArray[heapSize] = new PriorityNode(data, priorityVal);
 		int current = heapSize;
@@ -204,6 +228,12 @@ public class MinHeap {
 
 		@Override
 		public int compareTo(PriorityNode parameter) {
+			if (parameter == null)
+			{
+				return 1;
+			}
+			
+			
 			if (this.priorityVal > parameter.priorityVal)
 			{
 				return 1;

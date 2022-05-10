@@ -55,7 +55,7 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		// Puts a buffer around the panel so nothing on top of each other
 		this.setPadding(new Insets(5));
 		
-		
+		// Sets the color of the panel
 		this.setStyle("-fx-background-color: #afe0b4;");
 		
 		
@@ -95,7 +95,7 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		removeTaskButton.setPrefWidth(40);
 		removeTaskButton.setOnAction(this);
 		
-		// addTaskButton GridPaneConstraints
+		// removeTaskButton GridPaneConstraints
 		GridPane.setConstraints(removeTaskButton, 0, 1);
 		GridPane.setMargin(removeTaskButton, new Insets(10));
 		
@@ -112,12 +112,15 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 	@Override
 	public void handle(ActionEvent onClick) {
 		
+		// If the addTaskButton is clicked
 		if (onClick.getSource() == addTaskButton)
 		{
 			try {
+				
 				System.out.println("Adding Backlog Task");
 				String textToAdd = backlogTF.getText();
 				
+				// If the user doesn't add any data, throw an exception
 				if (textToAdd == "" || textToAdd == null)
 				{
 					throw new IllegalArgumentException("No backlog task entered!");
@@ -127,14 +130,19 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 				updateLabel();
 				backlogTF.clear();
 				programBrains.saveData();
+				
+				
 			} catch(Exception _exception)
 			{
+				// Throws alert to the GUI
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
 	    		alert.showAndWait();
 			}
 		}
+		
+		// If the removeTaskButton is clicked
 		if (onClick.getSource() == removeTaskButton)
 		{
 			try {
@@ -143,8 +151,11 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 				updateLabel();
 				backlogTF.clear();
 				programBrains.saveData();
+				
+				
 			} catch(Exception _exception)
 			{
+				// Throws an alert to the GUI
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
@@ -155,6 +166,9 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 	}
 
 
+	/**
+	 * Determines what the label to be shown should be
+	 */
 	private void updateLabel() {
 		
 		String newLabelText = "";
@@ -169,7 +183,7 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 			
 		}
 		
-		
+		// Sets the backlogLabel to what it should show
 		backlogLabel.setText(newLabelText);
 	}
 	
@@ -192,6 +206,10 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 	}
 
 
+	/**
+	 * Updates the panel
+	 * Allows an external object to force this panel to update itself
+	 */
 	public void update() {
 		updateLabel();
 		backlogTF.clear();

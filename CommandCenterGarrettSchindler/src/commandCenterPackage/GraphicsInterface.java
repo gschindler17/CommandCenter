@@ -19,8 +19,6 @@ import javafx.stage.Stage;
  */
 
 
-
-
 public class GraphicsInterface extends Application{
 	
 	/**
@@ -46,8 +44,8 @@ public class GraphicsInterface extends Application{
 		programBrains = new Controller(this);
 		try {
 			GridPane rootGridPane = new GridPane();
-			rootGridPane.setPrefSize(500, 400);
-			Scene _scene = new Scene(rootGridPane, 800, 500);
+			rootGridPane.setPrefSize(500, 450);
+			Scene _scene = new Scene(rootGridPane, 650, 520);
 			primaryStage.setScene(_scene);
 			primaryStage.setTitle("Garrett Schindler's Command Center");
 			

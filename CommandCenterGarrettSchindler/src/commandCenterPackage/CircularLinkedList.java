@@ -294,7 +294,10 @@ public class CircularLinkedList<T> {
 		
 	}
 	
-
+	/**
+	 * Loads in the data from the persistence file
+	 * @param loadedString String to be parsed into the CircularLinkedList
+	 */
 	public void loadInData(String loadedString) {
 
 		int count = 0;

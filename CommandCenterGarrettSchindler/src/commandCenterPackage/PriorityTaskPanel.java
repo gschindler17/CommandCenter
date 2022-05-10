@@ -48,6 +48,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		
 		programBrains = _programBrains;
 		
+		// Sets the background color of the panel
 		this.setStyle("-fx-background-color: #cae3d1;");
 		
 		// Initializes the taskTF
@@ -80,20 +81,21 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		GridPane.setMargin(addTaskButton, new Insets(10));
 		
 		
-		// Initializes the addTaskButton and makes it clickable
+		// Initializes the removeTaskButton and makes it clickable
 		removeTaskButton = new Button("Remove Task"); 		
 		removeTaskButton.setOnAction(this);
 		
-		// addTaskButton GridPaneConstraints
+		// removeTaskButton GridPaneConstraints
 		GridPane.setConstraints(removeTaskButton, 1, 1);
 		GridPane.setMargin(removeTaskButton, new Insets(10));
 		
-		
+		// Initializes the topItemLabel
 		topItemLabel = new Label(programBrains.getTopPriority());
 		GridPane.setConstraints(topItemLabel, 2, 1);
 		GridPane.setMargin(topItemLabel, new Insets(10));
 		
 		
+		// Add all of the javafx objects to the panel
 		this.getChildren().add(removeTaskButton);
 		this.getChildren().add(topItemLabel);
 		this.getChildren().add(taskTF);
@@ -105,6 +107,8 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 
 	@Override
 	public void handle(ActionEvent onClick) {
+		
+		// When the addTaskButton is clicked
 		if (onClick.getSource() == addTaskButton)
 		{
 			try {
@@ -122,6 +126,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 			}
 		}
 		
+		// When the removeTaskButton is clicked
 		if (onClick.getSource() == removeTaskButton)
 		{
 			try {
