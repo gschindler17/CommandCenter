@@ -1,5 +1,8 @@
 package commandCenterPackage;
 
+import java.awt.Cursor;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -140,6 +143,7 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 					System.out.println("Submitting guess");
 					int receivedGuess = Integer.parseInt(userGuessTF.getText());
 					userGuessTF.clear();
+					userGuessTF.setPromptText(receivedGuess + "");
 					programBrains.incrementGuessNumber();
 					responseToGuessLabel.setText("Your guess was " + this.getComparison(receivedGuess) + " my number");
 					guessCounterLabel.setText("Number of guesses: " + programBrains.getGuessNumber());
@@ -149,6 +153,15 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 						correctNumberLabel.setVisible(true);
 						computerGuessesLabel.setVisible(true);
 					}
+					
+					Platform.runLater(new Runnable() {
+
+			            @Override
+			            public void run() {
+			                userGuessTF.requestFocus();
+			            }
+			        });
+					
 				} catch(Exception _exception)
 				{
 					Alert alert = new Alert(Alert.AlertType.ERROR);

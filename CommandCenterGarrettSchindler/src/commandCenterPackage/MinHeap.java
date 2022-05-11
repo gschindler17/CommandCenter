@@ -2,13 +2,35 @@ package commandCenterPackage;
 
 import java.util.ArrayList;
 
-
+/**
+ * MinHeap is a version of a heap
+ * Functions with the parent always a lower value than both children
+ * Data Structures
+ * @author Garrett Schindler
+ * @version 5/11/2022
+ *
+ */
 public class MinHeap {
 
+	/**
+	 * Array to keep all of the priority nodes; where the heap is stored
+	 */
 	private PriorityNode[] heapArray;
+	
+	/**
+	 * Measures the size of the heap; fluctuates
+	 */
 	private int heapSize;
+	
+	/**
+	 * Determined maximum size for the heap; stagnant on creation
+	 */
 	private int maxSize;
 	
+	/**
+	 * Constructor
+	 * @param _maxSize determined maximum size for the heap
+	 */
 	public MinHeap(int _maxSize) {
 		maxSize = _maxSize;
 		heapSize = 0;
@@ -17,22 +39,41 @@ public class MinHeap {
 	
 	}
 	
-	
+	/**
+	 *
+	 * @param index of the current node
+	 * @return the index of the parent node
+	 */
 	private int parent(int index)
 	{
 		return (index - 1) / 2;
 	}
 	
+	/**
+	 * 
+	 * @param index of the current node
+	 * @return the index of the leftChild
+	 */
 	private int leftChild(int index)
 	{	
 		return (2 * index + 1);
 	}
 	
+	/**
+	 * 
+	 * @param index of the current node
+	 * @return the index of the rightChild
+	 */
 	private int rightChild(int index)
 	{
 		return (2 * index) + 2;
 	}
 	
+	/**
+	 * Swaps the indices of the two items in the heapArray
+	 * @param firstIndex 
+	 * @param secondIndex
+	 */
 	private void swap(int firstIndex, int secondIndex)
 	{
 		PriorityNode temp;
@@ -43,7 +84,7 @@ public class MinHeap {
 	}
 	
 	
-	// heapify the node at i
+		// buildHeap the node at i
 		private void buildHeap(int startingIndex) {
 			// If the node is a non-leaf node and greater
 	        // than any of its child
@@ -51,7 +92,7 @@ public class MinHeap {
 	            if ((heapArray[leftChild(startingIndex)] != null && heapArray[startingIndex].priorityVal > heapArray[leftChild(startingIndex)].priorityVal)
 	                || (heapArray[rightChild(startingIndex)] != null && heapArray[startingIndex].priorityVal > heapArray[rightChild(startingIndex)].priorityVal)) {
 	 
-	                // Swap with the left child and heapify
+	                // Swap with the left child and buildHeap
 	                // the left child
 	                if (heapArray[leftChild(startingIndex)].priorityVal
 	                    < heapArray[rightChild(startingIndex)].priorityVal) {
@@ -60,7 +101,7 @@ public class MinHeap {
 	                    buildHeap(leftChild(startingIndex));
 	                }
 	 
-	                // Swap with the right child and heapify
+	                // Swap with the right child and buildHeap
 	                // the right child
 	                else {
 	                    swap(startingIndex, rightChild(startingIndex));
@@ -83,6 +124,11 @@ public class MinHeap {
 		}
 	
 	
+		/**
+		 * 
+		 * @param startingIndex
+		 * @return boolean of if the current node is a leaf or not
+		 */
 	private boolean isLeaf(int startingIndex) {
 		 	
 		if (startingIndex > (heapSize / 2) && startingIndex <= heapSize)
@@ -93,7 +139,10 @@ public class MinHeap {
 	    return false;
 	}
 
-	
+	/**
+	 * 
+	 * @return topPriority in the heap
+	 */
 	public String topPriority() {
 		if (heapSize < 1)
 		{
@@ -103,8 +152,10 @@ public class MinHeap {
 		return heapArray[0].data;
 	}
 
-	// To remove and return the minimum
-    // element from the heap
+	/**
+	 * Takes the top of the heap off of the array and fixes the heap
+	 * @return top item in the heap
+	 */
     public PriorityNode delete()
     {
     	
@@ -121,13 +172,6 @@ public class MinHeap {
         heapArray[0] = heapArray[heapSize];
         
         
-        // TODO Remove printing for loop
-        for (int i = 0; i < heapSize; i++)
-        {
-        	
-        	System.out.print("i value: " + i + "    priVal: " + heapArray[i].priorityVal + "     " +  heapArray[i].data  + ", ");
-        }
-        
         if (heapSize > 0)
         {
         	buildHeap(0);
@@ -136,6 +180,11 @@ public class MinHeap {
         return popped;
     }
 	
+    /**
+     * Loads in the two different data strings and puts them into the heap
+     * @param messageString all of the messages 
+     * @param priorityString all of the priorities
+     */
 	public void loadInData(String messageString, String priorityString) {
 		int count = 0;
 		String messages = messageString;
@@ -164,6 +213,12 @@ public class MinHeap {
 		
 	}
 	
+	/**
+	 * Add another item to the array
+	 * @param data
+	 * @param priorityVal
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
 	public void add(String data, int priorityVal) throws ArrayIndexOutOfBoundsException {		
 		
 		if (heapSize >= maxSize) {
@@ -211,7 +266,10 @@ public class MinHeap {
 	    return count;
 	}
 	
-	
+	/**
+	 * These nodes are put into the heap
+	 * These objects are the elements of the heap
+	 */
 	private class PriorityNode implements Comparable <PriorityNode>{
 		
 		public int priorityVal;
@@ -225,7 +283,9 @@ public class MinHeap {
 		}
 
 
-
+		/**
+		 * Making sure that PriorityNodes are comparable
+		 */
 		@Override
 		public int compareTo(PriorityNode parameter) {
 			if (parameter == null)
@@ -251,6 +311,9 @@ public class MinHeap {
 
 	}
 
+	/**
+	 * @return all of the messages stored within the heap
+	 */
 	public String allMessages() {		
 		
 		String toReturn = "";
@@ -261,8 +324,6 @@ public class MinHeap {
 		}
 		
 		
-	
-		
 		for (int i = 0; i < heapSize; i++)
 		{
 			
@@ -272,6 +333,10 @@ public class MinHeap {
 		return toReturn;
 	}
 	
+	/**
+	 * 
+	 * @return all of the priorities in the heap
+	 */
 	public String allPriorities() {
 		
 		String toReturn = "";
@@ -289,6 +354,11 @@ public class MinHeap {
 		return toReturn;
 	}
 	
+	/**
+	 * Prints out the contents of the heap
+	 * The messages plus the priorities
+	 * Messages and priorities are printed out separately
+	 */
 	@Override
 	public String toString() {
 		return this.allMessages() + this.allPriorities();

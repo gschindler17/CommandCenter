@@ -115,7 +115,6 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 			@Override
 			public void run() {
 		        
-				
 				// Crucial part so that threading does not go out of line
 		        Platform.runLater(new Runnable(){
 
@@ -138,13 +137,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		// Timer does the scheduled task every ____ milliseconds;
 		rotationTimer.schedule(rotationTask, 2000, 2000);
 		
-		
-//		
 	}
-	
-	
-	
-	
 	
 	
 	

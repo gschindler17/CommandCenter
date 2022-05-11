@@ -95,12 +95,12 @@ public class Stack <T> implements DSStack<T> {
 	
 	@Override
 	public String toString() {
-		String toReturn = " ";
+		String toReturn = "";
 		ListNode prev = head;
 		
 		while (prev.next != tail)
 		{
-			toReturn = toReturn + prev.next.data + ", ";
+			toReturn = toReturn + ((String) prev.next.data) + ", ";
 			prev = prev.next;
 		}
 		
@@ -126,12 +126,13 @@ public class Stack <T> implements DSStack<T> {
 		}
 		
 		
+		
 		this.clear();
 		
 		for (String entry: entries)
 		{
 			
-			this.push((T)entry);
+			this.push((T)(entry));
 		}
 		
 	}

@@ -103,9 +103,11 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		
 		// Adds the buttons to the panel; this
 		this.getChildren().add(backlogLabel);
-		this.getChildren().add(addTaskButton);
 		this.getChildren().add(removeTaskButton);
 		this.getChildren().add(backlogTF);
+		this.getChildren().add(addTaskButton);
+		
+		
 	}
 
 

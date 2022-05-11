@@ -96,11 +96,11 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		
 		
 		// Add all of the javafx objects to the panel
-		this.getChildren().add(removeTaskButton);
 		this.getChildren().add(topItemLabel);
 		this.getChildren().add(taskTF);
 		this.getChildren().add(taskPriorityTF);
 		this.getChildren().add(addTaskButton);
+		this.getChildren().add(removeTaskButton);
 		
 	}
 
@@ -134,11 +134,13 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 				programBrains.deleteTopPriority();
 				taskTF.clear();
 				topItemLabel.setText(programBrains.getTopPriority());
+				programBrains.saveData();
 			} catch (Exception _exception) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
 	    		alert.showAndWait();
+	    		programBrains.saveData();
 			}
 		}
 	}

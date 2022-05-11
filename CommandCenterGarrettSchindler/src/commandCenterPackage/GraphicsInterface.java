@@ -28,14 +28,36 @@ public class GraphicsInterface extends Application{
 	 */
 	private Controller programBrains;
 	
+	/**
+	 * Object that is an instance of the PersistencePanel class
+	 * Holds the save and reload data buttons
+	 */
 	private PersistencePanel activePersistencePanel;
 	
+	/**
+	 * Object that is an instance of the RotatingMessagePanel class
+	 * Holds the message that rotates after a certain amount of time
+	 * Holds the ability to add and delete messages
+	 */
 	private RotatingMessagePanel activeRotatingMessagePanel;
 	
+	/**
+	 * Object that is an instance of the BacklogPanel class
+	 * Holds the stack of items in the "backlog"
+	 */
 	private BacklogPanel activeBacklogPanel;
 	
+	/**
+	 * Object that is an instance of the PriorityTaskPanel class
+	 * Shows the priority panel
+	 * Holds the ability to add and delete priority tasks
+	 */
 	private PriorityTaskPanel activePriorityTaskPanel;
 	
+	/**
+	 * Object that is an instance of the RaceTheComputerPanel
+	 * Holds the entire interface for the RTCP game
+	 */
 	private RaceTheComputerPanel activeRTCP;
 	
 	
@@ -43,36 +65,37 @@ public class GraphicsInterface extends Application{
 	public void start(Stage primaryStage) {
 		programBrains = new Controller(this);
 		try {
+			// Creates the Scene
 			GridPane rootGridPane = new GridPane();
 			rootGridPane.setPrefSize(500, 450);
 			Scene _scene = new Scene(rootGridPane, 650, 520);
 			primaryStage.setScene(_scene);
 			primaryStage.setTitle("Garrett Schindler's Command Center");
 			
-			
+			// Instantiation
 			activePersistencePanel = new PersistencePanel(programBrains);
 			GridPane.setConstraints(activePersistencePanel, 0, 0);
 			
-			
+			// Instantiation
 			activeRotatingMessagePanel = new RotatingMessagePanel(programBrains);
 			GridPane.setConstraints(activeRotatingMessagePanel, 1, 0);
 			
-			
+			// Instantiation
 			activeBacklogPanel = new BacklogPanel(programBrains);
 			GridPane.setConstraints(activeBacklogPanel, 0, 2);	
 			
-			
+			// Instantiation
 			activePriorityTaskPanel = new PriorityTaskPanel(programBrains);
 			GridPane.setConstraints(activePriorityTaskPanel, 1, 1);
 			
-			
+			// Instantiation
 			activeRTCP = new RaceTheComputerPanel(programBrains);
 			GridPane.setConstraints(activeRTCP, 0, 1);
 			
-		
+			// Makes sure all of the panels are up to date
 			updateAll();
 		
-			
+			// Adds the different panels to the rootGridPane
 			rootGridPane.getChildren().add(activePersistencePanel);
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
 			rootGridPane.getChildren().add(activeBacklogPanel);
@@ -98,7 +121,10 @@ public class GraphicsInterface extends Application{
 	}
 	
 	
-	
+	/**
+	 * Updates all of the panels
+	 * Each panel has their own update method
+	 */
 	public void updateAll() {
 		this.activePersistencePanel.update();
 		this.activeRotatingMessagePanel.update();
