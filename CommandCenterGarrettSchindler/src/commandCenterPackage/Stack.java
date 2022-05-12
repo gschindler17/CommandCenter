@@ -30,7 +30,9 @@ public class Stack <T> implements DSStack<T> {
 	}	
 	
 	
-	
+	/**
+	 * True if empty, false if more than 1 value
+	 */
 	@Override
 	public boolean isEmpty() {
 		return size < 1;
@@ -48,6 +50,10 @@ public class Stack <T> implements DSStack<T> {
 		
 	}
 
+	/**
+	 * Removes the top item in the stack
+	 * Returns that top item; Type: T
+	 */
 	@Override
 	public T pop() throws IllegalArgumentException {
 				
@@ -64,6 +70,9 @@ public class Stack <T> implements DSStack<T> {
 		
 	}
 
+	/**
+	 * Gets the top item in the stack
+	 */
 	@Override
 	public T top() throws EmptyStackException {
 		if (head.next == tail)
@@ -74,7 +83,10 @@ public class Stack <T> implements DSStack<T> {
 		return head.next.data;
 	}
 	
-	
+	/**
+	 * Object that there is a stack of
+	 * Both data and pointer to next ListNode as attributes
+	 */
 	private class ListNode{
 		// The data to store in this node:
 		public T data;
@@ -108,7 +120,11 @@ public class Stack <T> implements DSStack<T> {
 	}
 
 
-
+	/**
+	 * Takes a string of data and loads it into the Stack
+	 * Adds each element found in the String
+	 * @param loadedString full of items to be added to the stack
+	 */
 	public void loadInData(String loadedString) {
 
 		

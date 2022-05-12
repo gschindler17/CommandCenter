@@ -10,30 +10,52 @@ import java.io.PrintWriter;
 
 public class PersistenceBackend {
 	
-	
+	/**
+	 * Imports the RotatingMessageList so that it can load in the data
+	 */
 	private CircularLinkedList<String> RotatingMessageList;
 	
+	/**
+	 * Imports the PriorityMinHeap so that it can load in the data
+	 */
 	private MinHeap PriorityMinHeap;
 	
+	/**
+	 * Imports the BacklogStack so that it can load in the data
+	 */
 	private Stack<String> BacklogStack;
 	
+	/**
+	 * Holds the File where all of the information is to be stored
+	 */
 	private File outputFile;
 	
 	
-	
+	/**
+	 * Constructor
+	 * Initializes all of the data
+	 * @param _circularLinkedList
+	 * @param _minHeap
+	 * @param _stack
+	 */
 	public PersistenceBackend (CircularLinkedList<String> _circularLinkedList, MinHeap _minHeap, Stack<String> _stack) {
+		
+		// Stores to attributes
 		RotatingMessageList = _circularLinkedList;
 		PriorityMinHeap = _minHeap;
 		BacklogStack = _stack;
 		outputFile = new File("DataStoringFile.txt");
 			
-		
+		// Fills the attributes from the persistentFile
 		loadInData();		
-		
 				
 	}
 		
 
+	/**
+	 * All of the data is stored to the saved outputFile
+	 * Multiple lines, each line is later read back into the file when "loadData()" is called
+	 */
 	public void saveData() {
 		
 		try {
@@ -45,7 +67,8 @@ public class PersistenceBackend {
 			writer.append(BacklogStack.toString() + "\n");
 			writer.flush();
 			writer.close();
-
+			
+			// Loads the data back into the GUI
 			this.loadInData();
 			
 			
@@ -56,6 +79,10 @@ public class PersistenceBackend {
 		
 	}
 
+	/**
+	 * Clears out all of the data saved in the persistence file
+	 * Empties everything out
+	 */
 	public void reloadData() {
 			try {
 				PrintWriter writer = new PrintWriter(new FileWriter(outputFile));
@@ -67,6 +94,7 @@ public class PersistenceBackend {
 				writer.flush();
 				writer.close();
 				
+				// Loads the data back into the GUI
 				this.loadInData();
 				
 				
@@ -77,7 +105,10 @@ public class PersistenceBackend {
 		
 	
 	
-	@SuppressWarnings("resource")
+	/**
+	 * Data from the persistence file is brought back into the GUI
+	 * Reading from a text file
+	 */
 	public void loadInData() {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(outputFile));

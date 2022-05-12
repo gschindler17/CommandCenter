@@ -70,7 +70,11 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 		
 		
 		
-		
+		/**
+		 * Constructor
+		 * Creates the RaceTheComputerPanel
+		 * @param _programBrains needs access to the methods within the Controller
+		 */
 		public RaceTheComputerPanel(Controller _programBrains) {
 			
 			super();
@@ -102,7 +106,7 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 			
 			
 			
-			
+			// Adds all of the different text items to the Panel
 			this.getChildren().add(rangeLabel);
 			this.getChildren().add(userGuessPromptLabel);
 			this.getChildren().add(userGuessTF);
@@ -116,6 +120,11 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 		}
 
 
+		/**
+		 * Gets the strings based off of the comparison values
+		 * @param _guess int of what the user has guessed
+		 * @return String of "greater than", "equal", or "less than"
+		 */
 		private String getComparison(int _guess) {
 			int comparisonValue = programBrains.compareBSGuess(_guess);
 			
@@ -136,14 +145,21 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 
 		@Override
 		public void handle(ActionEvent onClick) {
+			
+			// If the submitButton is clicked
 			if (onClick.getSource() == submitButton)
 			{
 				try 
 				{
 					System.out.println("Submitting guess");
+					
+					// Gets the guess from the userGuessTF
 					int receivedGuess = Integer.parseInt(userGuessTF.getText());
+					
+					// Clears the TF and sets a new prompt text 
 					userGuessTF.clear();
 					userGuessTF.setPromptText(receivedGuess + "");
+					
 					programBrains.incrementGuessNumber();
 					responseToGuessLabel.setText("Your guess was " + this.getComparison(receivedGuess) + " my number");
 					guessCounterLabel.setText("Number of guesses: " + programBrains.getGuessNumber());
@@ -154,6 +170,8 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 						computerGuessesLabel.setVisible(true);
 					}
 					
+					
+					// Places the cursor back into the userGuessTF textfield
 					Platform.runLater(new Runnable() {
 
 			            @Override
@@ -164,6 +182,7 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 					
 				} catch(Exception _exception)
 				{
+					// If there is an exception, throw an alert
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 		    		alert.setTitle("Something doesn't look right...");
 		    		alert.setContentText(_exception.getMessage());
@@ -172,6 +191,7 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 				
 			}
 			
+			// If the resetNumber button is clicked
 			if (onClick.getSource() == resetNumber)
 			{
 				try
@@ -179,6 +199,7 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 					reset();
 				} catch(Exception _exception)
 				{
+					// If there is an exception, throw an alert
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 		    		alert.setTitle("Something doesn't look right...");
 		    		alert.setContentText(_exception.getMessage());
@@ -189,12 +210,16 @@ public class RaceTheComputerPanel extends VBox implements EventHandler<ActionEve
 
 		/**
 		 * Updates the RaceTheComputerPanel
+		 * Calls the reset method
 		 */
 		public void update() {
 			reset();
 		}
 		
-		
+		/**
+		 * Method to completely reset the game
+		 * Basically a call back to the constructor
+		 */
 		private void reset() {
 			programBrains.resetBSBackend();
 			userGuessTF.clear();

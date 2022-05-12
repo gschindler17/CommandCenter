@@ -79,6 +79,7 @@ public class PersistencePanel extends GridPane implements EventHandler<ActionEve
 	@Override
 	public void handle(ActionEvent onClick) {
 		
+		// SaveDataButton is clicked
 		if (onClick.getSource() == SaveDataButton)
 		{
 			try
@@ -87,12 +88,15 @@ public class PersistencePanel extends GridPane implements EventHandler<ActionEve
 				programBrains.saveData();
 			} catch(Exception _exception)
 			{
+				// If an exception, throw an alert
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
 	    		alert.showAndWait();
 			}
 		}
+		
+		// ReloadDataButton is clicked
 		if (onClick.getSource() == ReloadDataButton)
 		{
 			try {
@@ -100,6 +104,8 @@ public class PersistencePanel extends GridPane implements EventHandler<ActionEve
 				programBrains.reloadData();
 			} catch(Exception _exception)
 			{
+				
+				// If an exception, throw an alert
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
