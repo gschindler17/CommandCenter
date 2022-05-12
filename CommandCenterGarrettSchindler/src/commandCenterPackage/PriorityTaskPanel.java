@@ -139,6 +139,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 				topItemLabel.setText(programBrains.getTopPriority());
 				programBrains.saveData();
 			} catch (Exception _exception) {
+				// Pop an alert box if there is an exception
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
 	    		alert.setContentText(_exception.getMessage());
