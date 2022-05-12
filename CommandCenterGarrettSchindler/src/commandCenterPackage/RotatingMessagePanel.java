@@ -56,6 +56,18 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		programBrains = _programBrains;
 		
 		
+		messageToAddTF = new TextField();
+		messageToAddTF.setPrefWidth(150);
+		messageToAddTF.setPromptText("Message to add...");
+		
+		// messageToAddTF GridPaneConstraints
+		GridPane.setConstraints(messageToAddTF, 0, 0);
+		GridPane.setMargin(messageToAddTF, new Insets(10));
+		
+		this.getChildren().add(messageToAddTF);
+		
+		
+		
 		addMessageButton = new Button("Add message:");
 		addMessageButton.setOnAction(this);
 		
@@ -76,15 +88,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 		this.getChildren().add(removeMessageButton);
 		
 		
-		messageToAddTF = new TextField();
-		messageToAddTF.setPrefWidth(150);
-		messageToAddTF.setPromptText("Message to add...");
 		
-		// messageToAddTF GridPaneConstraints
-		GridPane.setConstraints(messageToAddTF, 0, 0);
-		GridPane.setMargin(messageToAddTF, new Insets(10));
-		
-		this.getChildren().add(messageToAddTF);
 		
 		
 		

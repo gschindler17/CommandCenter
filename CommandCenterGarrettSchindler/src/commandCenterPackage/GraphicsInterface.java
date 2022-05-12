@@ -98,9 +98,11 @@ public class GraphicsInterface extends Application{
 			// Adds the different panels to the rootGridPane
 			rootGridPane.getChildren().add(activePersistencePanel);
 			rootGridPane.getChildren().add(activeRotatingMessagePanel);
-			rootGridPane.getChildren().add(activeBacklogPanel);
-			rootGridPane.getChildren().add(activePriorityTaskPanel);
 			rootGridPane.getChildren().add(activeRTCP);
+			rootGridPane.getChildren().add(activePriorityTaskPanel);
+			rootGridPane.getChildren().add(activeBacklogPanel);
+			
+			
 			
 			
 			primaryStage.show();

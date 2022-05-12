@@ -91,16 +91,18 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 		
 		// Initializes the topItemLabel
 		topItemLabel = new Label(programBrains.getTopPriority());
-		GridPane.setConstraints(topItemLabel, 2, 1);
+		
+		// column, row, columnSpan, rowSpan
+		GridPane.setConstraints(topItemLabel, 0, 2, 3, 1);
 		GridPane.setMargin(topItemLabel, new Insets(10));
 		
 		
 		// Add all of the javafx objects to the panel
-		this.getChildren().add(topItemLabel);
 		this.getChildren().add(taskTF);
 		this.getChildren().add(taskPriorityTF);
 		this.getChildren().add(addTaskButton);
 		this.getChildren().add(removeTaskButton);
+		this.getChildren().add(topItemLabel);
 		
 	}
 
@@ -118,6 +120,7 @@ public class PriorityTaskPanel extends GridPane implements EventHandler<ActionEv
 				int receivedPriority = Integer.parseInt(taskPriorityTF.getText().toString());
 				programBrains.addPriorityTask(receivedTask, receivedPriority);
 				topItemLabel.setText(programBrains.getTopPriority());
+				programBrains.saveData();
 			} catch (Exception _exception) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	    		alert.setTitle("Something doesn't look right...");
