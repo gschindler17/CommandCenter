@@ -304,21 +304,22 @@ public class CircularLinkedList<T> {
 		String temp = loadedString;
 		ArrayList<String> entries = new ArrayList<String> ();
 		
-		
+		// Determines how many entries are in the string
 		count = countChar(temp, ',');
 		
+		// Store all of the entries into an ArrayList
 		for(int i = 0; i < count; i++)
 		{
 			entries.add(temp.substring(0, temp.indexOf(',')));
 			temp = temp.substring(temp.indexOf(',') + 2, temp.length());
 		}
 		
-		
+		// Clear out the CircularLinkedList
 		this.clear();
 		
+		// Re-add all values back into the CircularLinkedList from the loadedString 
 		for (String LLS: entries)
 		{
-			
 			this.add((T)LLS);
 		}
 		
