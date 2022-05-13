@@ -178,11 +178,11 @@ public class BacklogPanel extends GridPane implements EventHandler<ActionEvent> 
 		
 		int entries = countChar(stackToString, ',');
 		
+		// Gets all of the text the label needs to show and creates a string that holds all data
 		for (int i = 0; i < entries; i++)
 		{
 			newLabelText = newLabelText + stackToString.substring(0, stackToString.indexOf(',')) + "\n";
 			stackToString = stackToString.substring(stackToString.indexOf(',') + 2, stackToString.length());
-			
 		}
 		
 		// Sets the backlogLabel to what it should show
