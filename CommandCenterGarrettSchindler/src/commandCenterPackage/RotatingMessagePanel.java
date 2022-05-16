@@ -139,7 +139,7 @@ public class RotatingMessagePanel extends GridPane implements EventHandler<Actio
 
 			
 		// Timer does the scheduled task every ____ milliseconds;
-		rotationTimer.schedule(rotationTask, 2000, 2000);
+		rotationTimer.schedule(rotationTask, 3000, 3000);
 		
 	}
 	
